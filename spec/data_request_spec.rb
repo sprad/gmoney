@@ -28,7 +28,6 @@ describe GMoney::DataRequest do
   
 		
 	it "should be able to make a request to the GAAPI" do
-	  GMoney::Session.should_receive(:auth_token).with().and_return('toke')
 	  response = mock
 	  response.should_receive(:is_a?).with(Net::HTTPOK).and_return(true)
 	  
@@ -38,6 +37,8 @@ describe GMoney::DataRequest do
 		http.should_receive(:get).with('/data?key=value', 'Authorization' => 'GoogleLogin auth=toke').and_return(response)
 	  
 	  Net::HTTP.should_receive(:new).with('example.com', 443).and_return(http)
+	  
+ 	  GMoney::Session.should_receive(:auth_token).with().and_return('toke')
 	  
 	  data_request = GMoney::DataRequest.new('https://example.com/data', 'key' => 'value')
 	  data_request.send_request.should eql(response)
