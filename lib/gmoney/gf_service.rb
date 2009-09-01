@@ -4,7 +4,7 @@ require 'uri'
 
 module GMoney 
   class GFService 
-    def self.send_request(request)
+    def self.send_request(request)       
       url = URI.parse(request.url)
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = (url.scheme == 'https')

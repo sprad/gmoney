@@ -5,7 +5,6 @@ require 'net/http'
 require 'net/https'
 
 require 'gmoney/authentication_request'
-require 'gmoney/data_request'
 require 'gmoney/gf_request'
 require 'gmoney/gf_response'
 require 'gmoney/portfolio'

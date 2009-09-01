@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '/spec_helper')
 
-CA_CERT_FILE = File.join(File.dirname(__FILE__), '..', '/cacert.pem')
+CA_CERT_FILE = File.join(File.dirname(__FILE__), '..', 'fixtures/cacert.pem')
 
 describe GMoney::AuthenticationRequest do
 
