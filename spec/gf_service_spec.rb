@@ -6,8 +6,7 @@ describe GMoney::GFService do
   end
 
 	before(:each) do
-		@gfrequest = GMoney::GFRequest.new('https://someurl.com')
-		
+		@gfrequest = GMoney::GFRequest.new('https://someurl.com')		
     @gfresponse = GMoney::GFResponse.new
 		@gfresponse.status_code = 200
 		@gfresponse.body = @feed

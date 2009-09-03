@@ -14,9 +14,11 @@ module GMoney
 			#should be an easy call to map the props hash to the instance variables
 		end
 		
-    def self.all
+    def self.all(options = {})
       url = "#{GF_FEED_URL}/portfolios"
-      response = DataRequest.new(url).send_request
+      url += "?returns=true" if options[:with_returns]
+      
+      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{Session.auth_token}"}))
       
       #GMoneyParser.parse_portfolio_data(response) if response.      
      	#have the xml parser return all portolios as portfolio objects
