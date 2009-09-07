@@ -1,10 +1,8 @@
 module GMoney
 	class Portfolio	
-		attr_reader :gain_percentage, :return_1w, :return_4w, :return_3m, 
-		            :return_ytd, :return_1y, :return_3y, :return_5y, :return_overall, 
-		            :cost_basis, :days_gain, :gain, :market_value
-		            
-		attr_accessor :name, :currency_code, :transactions
+		attr_accessor :id, :feed_link, :updated, :gain_percentage, :return1w, :return4w, :return3m, 
+		            	:return_ytd, :return1y, :return3y, :return5y, :return_overall, 
+		            	:cost_basis, :days_gain, :gain, :market_value, :name, :currency_code, :transactions
 		
 		def initialize(name, currency_code, transactions=[], props={})		
 			@name = name
@@ -50,6 +48,14 @@ module GMoney
     def self.delete
  			#take in the properties
 			#send delete to the correct url
+    end
+    
+    def method_missing(name, *args)
+    	if self.respond_to? name.to_s.camel_to_us
+    		self.send(name.to_s.camel_to_us, *args)
+    	elsif
+    		super.method_missing(name, *args)
+    	end
     end
 	end
 end

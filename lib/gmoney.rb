@@ -4,11 +4,14 @@ $:.unshift File.expand_path(File.dirname(__FILE__))
 require 'net/http'
 require 'net/https'
 
+require 'extensions/string'
+
 require 'gmoney/authentication_request'
 require 'gmoney/gf_request'
 require 'gmoney/gf_response'
-require 'gmoney/portfolio'
 require 'gmoney/gf_service'
+require 'gmoney/gf_xml_parser'
+require 'gmoney/portfolio'
 require 'gmoney/session'
 
 module GMoney

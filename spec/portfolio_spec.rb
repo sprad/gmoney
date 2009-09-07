@@ -43,5 +43,11 @@ describe GMoney::Portfolio do
   end
   
   it "should return an empty array if there are no portfolios" do #test with SSE google account (or does it default to 'My Portfolio')
-  end    
+  end
+  
+  it "should dynamically call methods for the portfolio attributes" do
+  	#portfolio = GMoney::Portfolio.new("test", 'USD')
+  	#portfolio.returnYTD = '0.233'
+  	#puts portfoio.return_ytd
+  end  
 end
