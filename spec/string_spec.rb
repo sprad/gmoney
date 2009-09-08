@@ -10,5 +10,6 @@ describe String do
 		'HTTPResponseCode'.camel_to_us.should be_eql('http_response_code')		
 		'HTTPResponseCodeXYZ'.camel_to_us.should be_eql('http_response_code_xyz')
 		'returnYTD='.camel_to_us.should be_eql('return_ytd=')		
+		'return_ytd='.camel_to_us.should be_eql('return_ytd=')				
 	end
 end
