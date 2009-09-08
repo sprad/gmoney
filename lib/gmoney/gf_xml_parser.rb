@@ -15,7 +15,7 @@ module GMoney
 				portfolio.updated  = parsed_portfolio.elements['updated'].text
 				portfolio.feed_link = parsed_portfolio.elements['gd:feedLink'].attributes['href']
 				
-				#TODO Does send totally kill performance?
+				#TODO Does "send" totally kill performance?
 				parsed_portfolio.elements['gf:portfolioData'].attributes.each do |attr_name, attr_value|
 					portfolio.send("#{attr_name.camel_to_us}=", attr_value)					
 				end

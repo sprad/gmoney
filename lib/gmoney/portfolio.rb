@@ -49,13 +49,5 @@ module GMoney
  			#take in the properties
 			#send delete to the correct url
     end
-    
-    def method_missing(name, *args)
-    	if self.respond_to? name.to_s.camel_to_us
-    		self.send(name.to_s.camel_to_us, *args)
-    	elsif
-    		super.method_missing(name, *args)
-    	end
-    end
 	end
 end
