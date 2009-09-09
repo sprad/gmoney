@@ -12,4 +12,29 @@ describe String do
 		'returnYTD='.camel_to_us.should be_eql('return_ytd=')		
 		'return_ytd='.camel_to_us.should be_eql('return_ytd=')				
 	end
+	
+	it "should be able to detect if its contents are numeric" do
+		'0'.is_numeric?.should be_true
+		'0.0'.is_numeric?.should be_true
+		'1'.is_numeric?.should be_true
+		'-1'.is_numeric?.should be_true
+		'-0.3423'.is_numeric?.should be_true
+		'234.2352'.is_numeric?.should be_true
+		'-234.2352'.is_numeric?.should be_true
+		'-0.2352'.is_numeric?.should be_true
+		'-0.2352'.is_numeric?.should be_true
+		'-.2352'.is_numeric?.should be_true		
+		
+		'a'.is_numeric?.should be_false
+		'cat'.is_numeric?.should be_false
+		'-.23s52'.is_numeric?.should be_false
+		'0.0s'.is_numeric?.should be_false		
+		's0.0'.is_numeric?.should be_false
+		's1'.is_numeric?.should be_false		
+		'1s1'.is_numeric?.should be_false				
+		'1s'.is_numeric?.should be_false						
+		'@'.is_numeric?.should be_false				
+		'$123.23'.is_numeric?.should be_false						
+		'.'.is_numeric?.should be_false								
+	end
 end
