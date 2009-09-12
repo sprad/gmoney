@@ -7,8 +7,10 @@ module GMoney
 			portfolios = []
 			
 			doc.elements.each('feed/entry') do |parsed_portfolio|
+				portfolio_data = parsed_portfolio.elements['gf:portfolioData']
+
 			  portfolio_name = parsed_portfolio.elements['title'].text
-				currency_code  = parsed_portfolio.elements['gf:portfolioData'].attributes['currencyCode']
+				currency_code  = portfolio_data.attributes['currencyCode']
 				
 				#TODO - have someone peer review this.  Is it bad practice to use instance_variable_set because
 				#it breaks encapsulation? (Even though it actually enhances the Portfolio classes encapsulation
@@ -18,8 +20,6 @@ module GMoney
 				portfolio.instance_variable_set("@updated", parsed_portfolio.elements['updated'].text)
 				portfolio.instance_variable_set("@feed_link", parsed_portfolio.elements['gd:feedLink'].attributes['href'])
 				
-				portfolio_data = parsed_portfolio.elements['gf:portfolioData']
-				
 				portfolio_data.attributes.each do |attr_name, attr_value|
 					#Set the return percentages to a proper float value
 				  attr_value = attr_value.to_f if attr_value.is_numeric?
@@ -27,6 +27,7 @@ module GMoney
 				end				
 
 				#TODO - This is only going to work for USD for now.  Need to updated to make a "Money" object to store amount and currency code.
+				#currency code may be define by the portfolio_data and thus not important... sort it
 				portfolio_data.elements.each do |cg|
 					portfolio.instance_variable_set("@#{cg.name.camel_to_us}", cg.elements['gd:money'].attributes['amount'].to_f)
 				end			
