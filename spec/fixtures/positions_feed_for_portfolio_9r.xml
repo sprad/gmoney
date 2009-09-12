@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions</id>
+  <updated>2009-09-12T16:20:13.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+  <title type='text'>GMoney Test</title>
+  <link rel='alternate' type='text/html' href='http://finance.google.com/finance/portfolio?action=view&amp;pid=9' />
+  <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions' />
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions?returns=true' />
+  <openSearch:totalResults>5</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>5</openSearch:itemsPerPage>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:JAVA</id>
+    <updated>2009-09-12T16:20:13.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+    <title type='text'>Sun Microsystems, Inc.</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AJAVA' />
+    <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:JAVA/transactions' />
+    <gf:positionData gainPercentage='0.1182926829' return1w='-0.01967213115' return1y='0.09390243902' return3m='0.09390243902' return3y='0.09390243902' return4w='0.09390243902' return5y='0.09390243902' returnOverall='0.09390243902'
+    returnYTD='0.09390243902' shares='75.0'>
+      <gf:costBasis>
+        <gd:money amount='615.0' currencyCode='USD' />
+      </gf:costBasis>
+      <gf:daysGain>
+        <gd:money amount='0.0' currencyCode='USD' />
+      </gf:daysGain>
+      <gf:gain>
+        <gd:money amount='72.75' currencyCode='USD' />
+      </gf:gain>
+      <gf:marketValue>
+        <gd:money amount='687.75' currencyCode='USD' />
+      </gf:marketValue>
+    </gf:positionData>
+    <gf:symbol exchange='NASDAQ' fullName='Sun Microsystems, Inc.' symbol='JAVA' />
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG</id>
+    <updated>2009-09-12T16:20:13.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+    <title type='text'>Google Inc.</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG' />
+    <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions' />
+    <gf:positionData gainPercentage='0.1788764045' return1w='-0.002048558422' return1y='0.1494506866' return3m='0.1494506866' return3y='0.1494506866' return4w='0.1494506866' return5y='0.1494506866' returnOverall='0.1494506866' returnYTD='0.1494506866'
+    shares='75.0'>
+      <gf:costBasis>
+        <gd:money amount='30037.5' currencyCode='USD' />
+      </gf:costBasis>
+      <gf:daysGain>
+        <gd:money amount='90.0009' currencyCode='USD' />
+      </gf:daysGain>
+      <gf:gain>
+        <gd:money amount='5373.0' currencyCode='USD' />
+      </gf:gain>
+      <gf:marketValue>
+        <gd:money amount='35410.5' currencyCode='USD' />
+      </gf:marketValue>
+    </gf:positionData>
+    <gf:symbol exchange='NASDAQ' fullName='Google Inc.' symbol='GOOG' />
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:AAPL</id>
+    <updated>2009-09-12T16:20:13.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+    <title type='text'>Apple Inc.</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AAAPL' />
+    <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:AAPL/transactions' />
+    <gf:positionData gainPercentage='0.7216' return1w='0.01086254477' return1y='0.7216' return3m='0.7216' return3y='0.7216' return4w='0.7216' return5y='0.7216' returnOverall='0.7216' returnYTD='0.7216' shares='100.0'>
+      <gf:costBasis>
+        <gd:money amount='10000.0' currencyCode='USD' />
+      </gf:costBasis>
+      <gf:daysGain>
+        <gd:money amount='-39.9994' currencyCode='USD' />
+      </gf:daysGain>
+      <gf:gain>
+        <gd:money amount='7216.0' currencyCode='USD' />
+      </gf:gain>
+      <gf:marketValue>
+        <gd:money amount='17216.0' currencyCode='USD' />
+      </gf:marketValue>
+    </gf:positionData>
+    <gf:symbol exchange='NASDAQ' fullName='Apple Inc.' symbol='AAPL' />
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:ORCL</id>
+    <updated>2009-09-12T16:20:13.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+    <title type='text'>Oracle Corporation</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AORCL' />
+    <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:ORCL/transactions' />
+    <gf:positionData gainPercentage='0.143' return1w='0.04050978607' return1y='0.143' return3m='0.143' return3y='0.143' return4w='0.143' return5y='0.143' returnOverall='0.143' returnYTD='0.143' shares='75.0'>
+      <gf:costBasis>
+        <gd:money amount='1500.0' currencyCode='USD' />
+      </gf:costBasis>
+      <gf:daysGain>
+        <gd:money amount='7.5' currencyCode='USD' />
+      </gf:daysGain>
+      <gf:gain>
+        <gd:money amount='214.5' currencyCode='USD' />
+      </gf:gain>
+      <gf:marketValue>
+        <gd:money amount='1714.5' currencyCode='USD' />
+      </gf:marketValue>
+    </gf:positionData>
+    <gf:symbol exchange='NASDAQ' fullName='Oracle Corporation' symbol='ORCL' />
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NYSE:IBM</id>
+    <updated>2009-09-12T16:20:13.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+    <title type='text'>International Business Machines Corp.</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NYSE%3AIBM' />
+    <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NYSE:IBM/transactions' />
+    <gf:positionData gainPercentage='0.1805' return1w='-0.07894176741' return1y='0.081875' return3m='0.081875' return3y='0.081875' return4w='0.081875' return5y='0.081875' returnOverall='0.081875' returnYTD='0.081875' shares='75.0'>
+      <gf:costBasis>
+        <gd:money amount='7500.0' currencyCode='USD' />
+      </gf:costBasis>
+      <gf:daysGain>
+        <gd:money amount='28.500375' currencyCode='USD' />
+      </gf:daysGain>
+      <gf:gain>
+        <gd:money amount='1353.75' currencyCode='USD' />
+      </gf:gain>
+      <gf:marketValue>
+        <gd:money amount='8853.75' currencyCode='USD' />
+      </gf:marketValue>
+    </gf:positionData>
+    <gf:symbol exchange='NYSE' fullName='International Business Machines Corp.' symbol='IBM' />
+  </entry>
+</feed>

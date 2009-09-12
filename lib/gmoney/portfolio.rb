@@ -1,19 +1,17 @@
 module GMoney
 	class Portfolio	
-		attr_accessor :name, :currency_code, :transactions
+		attr_accessor :title, :currency_code
 		            	
 		attr_reader :id, :feed_link, :updated, :gain_percentage, :return1w, :return4w, :return3m, 
 		            :return_ytd, :return1y, :return3y, :return5y, :return_overall, 
-		            :cost_basis, :days_gain, :gain, :market_value
+		            :cost_basis, :days_gain, :gain, :market_value, :positions
 		
-		def initialize(name, currency_code, transactions=[], props={})		
-			@name = name
+		def initialize(title, currency_code)		
+			@title = title
 			@currency_code = currency_code
-			@transactions = transactions
-			
-			#should be an easy call to map the props hash to the instance variables
 		end
 		
+		#TODO alias .all with find(:all)
     def self.all(options = {})
       url = "#{GF_FEED_URL}/portfolios"
       url += "?returns=true" if options[:with_returns]
@@ -31,7 +29,7 @@ module GMoney
     end
     
 		#Create a new portfolio
-    def self.create(name, currency_code = 'USD')
+    def self.create(title, currency_code = 'USD')
 			#we have a data_request object, should we also have a data_"creation" object
 
 			#take in the properties

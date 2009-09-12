@@ -12,7 +12,7 @@
   <openSearch:startIndex>1</openSearch:startIndex>
   <openSearch:itemsPerPage>5</openSearch:itemsPerPage>
   <entry>
-    <id>http://finance.google.com/finance/feeds/user@example.com.com/portfolios/1</id>
+    <id>http://finance.google.com/finance/feeds/user@example.com.com/portfolios/8</id>
     <updated>2009-06-13T18:31:11.000Z</updated>
     <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#portfolio' />
     <title type='text'>Ruby Portfolio</title>
@@ -22,7 +22,7 @@
     <gf:portfolioData currencyCode='USD' gainPercentage='0.0' return1w='0.0' return1y='0.0' return3m='0.0' return3y='0.0' return4w='0.0' return5y='0.0' returnOverall='0.0' returnYTD='0.0' />
   </entry>
   <entry>
-    <id>http://finance.google.com/finance/feeds/user@example.com.com/portfolios/2</id>
+    <id>http://finance.google.com/finance/feeds/user@example.com.com/portfolios/9</id>
     <updated>2009-07-11T21:21:11.000Z</updated>
     <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#portfolio' />
     <title type='text'>GMoney Test</title>
@@ -32,7 +32,7 @@
     <gf:portfolioData currencyCode='USD' gainPercentage='0.0' return1w='0.0' return1y='0.0' return3m='0.0' return3y='0.0' return4w='0.0' return5y='0.0' returnOverall='0.0' returnYTD='0.0' />
   </entry> 
   <entry>
-    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/14</id>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/3</id>
     <updated>2009-09-03T02:13:33.000Z</updated>
     <category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/finance/2007#portfolio" />
     <title type="text">Jam 1</title>

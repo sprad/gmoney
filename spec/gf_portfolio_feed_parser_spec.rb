@@ -22,22 +22,16 @@ describe GMoney::GFPorfolioFeedParser do
 		@portfolios.size.should be_eql(3)
 	end
 	
-  it "should have portfolios with an id that starts with the Google Finance API URL" do
-		@portfolios.each do |portfolio|
-  		(portfolio.id.include? GMoney::GF_URL[8..-1]).should be_true
-		end
-  end	
-	
   it "should return a default portfolio if the user has not made any of her own" do
   	@default_portfolios.size.should be_eql(1)
-  	@default_portfolios[0].name.should be_eql('My Portfolio')
+  	@default_portfolios[0].title.should be_eql('My Portfolio')
   	@default_portfolios.size.should be_eql(1)
   end
   
 	it "should create Portfolio objects with valid numeric data types for the returns" do
 		@portfolios_with_returns.each do |portfolio|
 			portfolio.public_methods(false).each do |pm|
-				if !(['id', 'feed_link', 'updated', 'name', 'currency_code', 'transactions'].include? pm) && !(pm.include?('='))
+				if !(['id', 'feed_link', 'updated', 'title', 'currency_code', 'positions'].include? pm) && !(pm.include?('='))
 					return_val = portfolio.send(pm)
 					return_val.should be_instance_of(Float) if return_val
 				end

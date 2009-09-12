@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/14/positions</id>
+  <updated>2007-01-01T00:00:00.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+  <title type='text'>Jam 1</title>
+  <link rel='alternate' type='text/html' href='http://finance.google.com/finance/portfolio?action=view&amp;pid=14' />
+  <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/14/positions' />
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/14/positions' />
+  <openSearch:totalResults>0</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>0</openSearch:itemsPerPage>
+</feed>

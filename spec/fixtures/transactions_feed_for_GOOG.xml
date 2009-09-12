@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions</id>
+  <updated>2009-09-12T18:22:44.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+  <title type='text'>Google Inc.</title>
+  <link rel='alternate' type='text/html' href='http://finance.google.com/finance/portfolio?action=viewt&amp;pid=9' />
+  <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions' />
+  <link rel='http://schemas.google.com/g/2005#post' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions' />
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions' />
+  <openSearch:totalResults>4</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>4</openSearch:itemsPerPage>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/2</id>
+    <updated>2009-09-12T18:22:44.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+    <title type='text'>2</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/2' />
+    <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/2' />
+    <gf:transactionData date='2009-09-01T00:00:00.000' shares='100.0' type='Buy'>
+      <gf:commission>
+        <gd:money amount='50.0' currencyCode='USD' />
+      </gf:commission>
+      <gf:price>
+        <gd:money amount='400.0' currencyCode='USD' />
+      </gf:price>
+    </gf:transactionData>
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/10</id>
+    <updated>2009-09-12T18:22:44.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+    <title type='text'>10</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/10' />
+    <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/10' />
+    <gf:transactionData date='2009-09-07T00:00:00.000' notes='Buy some more Google.' shares='100.0' type='Buy'>
+      <gf:commission>
+        <gd:money amount='12.75' currencyCode='USD' />
+      </gf:commission>
+      <gf:price>
+        <gd:money amount='425.0' currencyCode='USD' />
+      </gf:price>
+    </gf:transactionData>
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/11</id>
+    <updated>2009-09-12T18:22:44.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+    <title type='text'>11</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/11' />
+    <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/11' />
+    <gf:transactionData date='2009-09-08T00:00:00.000' shares='150.0' type='Buy'>
+      <gf:commission>
+        <gd:money amount='0.0' currencyCode='USD' />
+      </gf:commission>
+      <gf:price>
+        <gd:money amount='425.0' currencyCode='USD' />
+      </gf:price>
+    </gf:transactionData>
+  </entry>
+  <entry>
+    <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/6</id>
+    <updated>2009-09-12T18:22:44.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+    <title type='text'>6</title>
+    <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/6' />
+    <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/6' />
+    <gf:transactionData date='2009-09-11T00:00:00.000' shares='25.0' type='Sell'>
+      <gf:commission>
+        <gd:money amount='50.0' currencyCode='USD' />
+      </gf:commission>
+      <gf:price>
+        <gd:money amount='427.0' currencyCode='USD' />
+      </gf:price>
+    </gf:transactionData>
+  </entry>
+</feed>
