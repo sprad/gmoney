@@ -1,15 +1,15 @@
 require File.join(File.dirname(__FILE__), '/spec_helper')
 
-describe GMoney::GFXmlParser do
+describe GMoney::GFPorfolioFeedParser do
 	before(:all) do
 		feed = File.read('spec/fixtures/default_portfolios_feed.xml')
-  	@portfolios = GMoney::GFXmlParser.parse_portfolio(feed)
+  	@portfolios = GMoney::GFPorfolioFeedParser.parse_portfolio_feed(feed)
   	
 		empty_feed = File.read('spec/fixtures/empty_portfolio_feed.xml')
-  	@default_portfolios = GMoney::GFXmlParser.parse_portfolio(empty_feed)
+  	@default_portfolios = GMoney::GFPorfolioFeedParser.parse_portfolio_feed(empty_feed)
   	
 		feed_with_returns = File.read('spec/fixtures/portfolio_feed_with_returns.xml')
-  	@portfolios_with_returns = GMoney::GFXmlParser.parse_portfolio(feed_with_returns)
+  	@portfolios_with_returns = GMoney::GFPorfolioFeedParser.parse_portfolio_feed(feed_with_returns)
 	end
 
   it "should create Portfolio objects out of portfolio feeds" do   

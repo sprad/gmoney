@@ -7,10 +7,10 @@ require 'net/https'
 require 'extensions/string'
 
 require 'gmoney/authentication_request'
+require 'gmoney/gf_portfolio_feed_parser'
 require 'gmoney/gf_request'
 require 'gmoney/gf_response'
 require 'gmoney/gf_service'
-require 'gmoney/gf_xml_parser'
 require 'gmoney/portfolio'
 require 'gmoney/session'
 

@@ -1,8 +1,8 @@
 require 'rexml/document'
 
 module GMoney
-	class GFXmlParser
-		def self.parse_portfolio(portfolio_feed)
+	class GFPorfolioFeedParser
+		def self.parse_portfolio_feed(portfolio_feed)
 			doc = REXML::Document.new(portfolio_feed)
 			portfolios = []
 			
@@ -35,6 +35,9 @@ module GMoney
 				portfolios << portfolio
 			end			
 			portfolios
+		end
+		
+		def self.parse_position_feed(position_feed)
 		end
 	end	
 end
