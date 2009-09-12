@@ -22,12 +22,6 @@ describe GMoney::GFXmlParser do
 		@portfolios.size.should be_eql(3)
 	end
 	
-  it "should do some extra stuff when with_returns portfolios are used" do
-	  @portfolios_with_returns.each do |portfolio_with_returns|
-	  	#portfolio_with_returns.
-	  end
-  end	
-	
   it "should have portfolios with an id that starts with the Google Finance API URL" do
 		@portfolios.each do |portfolio|
   		(portfolio.id.include? GMoney::GF_URL[8..-1]).should be_true
@@ -37,20 +31,17 @@ describe GMoney::GFXmlParser do
   it "should return a default portfolio if the user has not made any of her own" do
   	@default_portfolios.size.should be_eql(1)
   	@default_portfolios[0].name.should be_eql('My Portfolio')
+  	@default_portfolios.size.should be_eql(1)
   end
   
-	it "should create Portfolio objects with valid data types" do #look to see how rails validates its Active Record objects
-	end 
-	
-=begin
-  
-  it "should create Position objects out of position feeds" do   
-  end  
-
-  it "should create Transaction objects out of transaction feeds" do   
-  end  
-  
-  it "should return an empty array if there are no portfolios" do #or is there always a default "My Portfolio"
-  end    
-=end
+	it "should create Portfolio objects with valid numeric data types for the returns" do
+		@portfolios_with_returns.each do |portfolio|
+			portfolio.public_methods(false).each do |pm|
+				if !(['id', 'feed_link', 'updated', 'name', 'currency_code', 'transactions'].include? pm) && !(pm.include?('='))
+					return_val = portfolio.send(pm)
+					return_val.should be_instance_of(Float) if return_val
+				end
+			end
+		end
+	end
 end

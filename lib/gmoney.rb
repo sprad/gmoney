@@ -14,6 +14,8 @@ require 'gmoney/gf_xml_parser'
 require 'gmoney/portfolio'
 require 'gmoney/session'
 
+#TODO - Is it common practice to have your code wrapped in a module like "GMoney" to create a namespace?
+#ask garb guys at the next ruby hack night
 module GMoney
   VERSION = '0.1.0'
 	GF_URL = "https://finance.google.com/finance"

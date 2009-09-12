@@ -1,10 +1,10 @@
 module GMoney
 	class Portfolio	
-		attr_accessor :id, :feed_link, :updated, :gain_percentage,  :return4w, :return3m, 
-		            	:return_ytd, :return1y, :return3y, :return5y, :return_overall, 
-		            	:cost_basis, :days_gain, :gain, :market_value, :name, :currency_code, :transactions
+		attr_accessor :name, :currency_code, :transactions
 		            	
-		attr_reader :return1w
+		attr_reader :id, :feed_link, :updated, :gain_percentage, :return1w, :return4w, :return3m, 
+		            :return_ytd, :return1y, :return3y, :return5y, :return_overall, 
+		            :cost_basis, :days_gain, :gain, :market_value
 		
 		def initialize(name, currency_code, transactions=[], props={})		
 			@name = name
