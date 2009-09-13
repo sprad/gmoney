@@ -1,5 +1,5 @@
 module GMoney
-	class GFPositionFeedParser < GFFeedParser
+	class PositionFeedParser < FeedParser
 		def self.parse_position_feed(position_feed)
 			parse_feed(position_feed, Position, {:feed_link => true, :symbol => true})
 		end

@@ -1,5 +1,5 @@
 module GMoney
-	class GFFeedParser
+	class FeedParser
 		def self.parse_feed(feed, feed_class, options = {:feed_link => true, :symbol => false})
 			doc = REXML::Document.new(feed)
 			finance_objects = []			

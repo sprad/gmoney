@@ -1,5 +1,5 @@
 module GMoney
-  class Session
+  class GFSession
     
     def self.login(email, password, opts={})
       @email = email

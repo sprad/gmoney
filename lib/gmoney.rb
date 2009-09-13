@@ -9,17 +9,17 @@ require 'rexml/document'
 require 'extensions/string'
 
 require 'gmoney/authentication_request'
-require 'gmoney/gf_feed_parser.rb'
-require 'gmoney/gf_portfolio_feed_parser'
-require 'gmoney/gf_position_feed_parser'
+require 'gmoney/feed_parser.rb'
 require 'gmoney/gf_request'
 require 'gmoney/gf_response'
 require 'gmoney/gf_service'
-require 'gmoney/gf_transaction_feed_parser'
+require 'gmoney/gf_session'
 require 'gmoney/portfolio'
+require 'gmoney/portfolio_feed_parser'
 require 'gmoney/position'
-require 'gmoney/session'
+require 'gmoney/position_feed_parser'
 require 'gmoney/transaction'
+require 'gmoney/transaction_feed_parser'
 
 #TODO - Is it common practice to have your code wrapped in a module like "GMoney" to create a namespace?
 #ask garb guys at the next ruby hack night

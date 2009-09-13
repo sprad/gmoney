@@ -67,10 +67,10 @@ describe GMoney::Portfolio do
 		portfolios.size.should be_eql(1)  
 		portfolios[0].title.should be_eql('GMoney Test') 	
   end
-=end  
-  
+=end
+
   def portfolio_helper(url, options = {})
-		GMoney::Session.should_receive(:auth_token).and_return('toke')
+		GMoney::GFSession.should_receive(:auth_token).and_return('toke')
 
 	  GMoney::GFRequest.should_receive(:new).with(url, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
 

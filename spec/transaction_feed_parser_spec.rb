@@ -1,9 +1,9 @@
 require File.join(File.dirname(__FILE__), '/spec_helper')
 
-describe GMoney::GFTransactionFeedParser do
+describe GMoney::TransactionFeedParser do
 	before(:all) do
 		feed = File.read('spec/fixtures/transactions_feed_for_GOOG.xml')
-  	@transactions = GMoney::GFTransactionFeedParser.parse_transaction_feed(feed)
+  	@transactions = GMoney::TransactionFeedParser.parse_transaction_feed(feed)
 	end
 
   it "should create Transaction objects out of transaction feeds" do

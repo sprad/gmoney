@@ -15,8 +15,8 @@ module GMoney
       positions = []
       url += "?returns=true" if options[:with_returns]
       
-      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{Session.auth_token}"}))
-      positions = GFPositionFeedParser.parse_position_feed(response.body) if response.status_code == 200
+      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      positions = PositionFeedParser.parse_position_feed(response.body) if response.status_code == 200
 
 			positions.each do |position|
 				position.transactions = Transaction.find_by_url(position.feed_link)

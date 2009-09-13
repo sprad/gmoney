@@ -17,10 +17,10 @@ module GMoney
       url += "?returns=true" if options[:with_returns]
       portfolios = []
       
-      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{Session.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
 
 			if response.status_code == HTTPOK
-	     	portfolios = GFPortfolioFeedParser.parse_portfolio_feed(response.body)
+	     	portfolios = PortfolioFeedParser.parse_portfolio_feed(response.body)
 	    else
 				raise PortfolioRequestError
 	    end

@@ -1,15 +1,15 @@
 require File.join(File.dirname(__FILE__), '/spec_helper')
 
-describe GMoney::GFPositionFeedParser do
+describe GMoney::PositionFeedParser do
 	before(:all) do
 		feed = File.read('spec/fixtures/positions_feed_for_portfolio_9.xml')
-  	@positions = GMoney::GFPositionFeedParser.parse_position_feed(feed)
+  	@positions = GMoney::PositionFeedParser.parse_position_feed(feed)
   	
 		empty_feed = File.read('spec/fixtures/positions_feed_for_portfolio_14.xml')
-  	@empty_positions = GMoney::GFPositionFeedParser.parse_position_feed(empty_feed)
+  	@empty_positions = GMoney::PositionFeedParser.parse_position_feed(empty_feed)
   	
 		feed_with_returns = File.read('spec/fixtures/positions_feed_for_portfolio_9r.xml')
-  	@positions_with_returns = GMoney::GFPositionFeedParser.parse_position_feed(feed_with_returns)
+  	@positions_with_returns = GMoney::PositionFeedParser.parse_position_feed(feed_with_returns)
 	end
 
   it "should create Position objects out of position feeds" do
