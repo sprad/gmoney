@@ -1,41 +1,7 @@
 module GMoney
-	class GFPorfolioFeedParser
+	class GFPortfolioFeedParser < GFFeedParser
 		def self.parse_portfolio_feed(portfolio_feed)
-			doc = REXML::Document.new(portfolio_feed)
-			portfolios = []
-			
-			doc.elements.each('feed/entry') do |parsed_portfolio|
-				portfolio_data = parsed_portfolio.elements['gf:portfolioData']
-
-			  portfolio_title = parsed_portfolio.elements['title'].text
-				currency_code  = portfolio_data.attributes['currencyCode']
-				
-				#TODO - have someone peer review this.  Is it bad practice to use instance_variable_set because
-				#it breaks encapsulation? (Even though it actually enhances the Portfolio classes encapsulation
-				#by not allowing users to set attributes that should be read only (i.e. id, updated, return1w))
-				portfolio = GMoney::Portfolio.new(portfolio_title, currency_code)
-				portfolio.instance_variable_set("@id", parsed_portfolio.elements['id'].text)
-				portfolio.instance_variable_set("@updated", DateTime.parse(parsed_portfolio.elements['updated'].text))
-				portfolio.instance_variable_set("@feed_link", parsed_portfolio.elements['gd:feedLink'].attributes['href'])
-				
-				portfolio_data.attributes.each do |attr_name, attr_value|
-					#Set the return percentages to a proper float value
-				  attr_value = attr_value.to_f if attr_value.is_numeric?
-					portfolio.instance_variable_set("@#{attr_name.camel_to_us}", attr_value)
-				end				
-
-				#TODO - This is only going to work for USD for now.  Need to updated to make a "Money" object to store amount and currency code.
-				#currency code may be define by the portfolio_data and thus not important... sort it
-				portfolio_data.elements.each do |cg|
-					portfolio.instance_variable_set("@#{cg.name.camel_to_us}", cg.elements['gd:money'].attributes['amount'].to_f)
-				end			
-	
-				portfolios << portfolio
-			end			
-			portfolios
-		end
-		
-		def self.parse_position_feed(position_feed)
+			parse_feed(portfolio_feed, Portfolio)
 		end
 	end	
 end

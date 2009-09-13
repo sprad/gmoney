@@ -1,6 +1,7 @@
 #figure out what this does
 $:.unshift File.expand_path(File.dirname(__FILE__))
 
+require 'date'
 require 'net/http'
 require 'net/https'
 require 'rexml/document'
@@ -8,6 +9,7 @@ require 'rexml/document'
 require 'extensions/string'
 
 require 'gmoney/authentication_request'
+require 'gmoney/gf_feed_parser.rb'
 require 'gmoney/gf_portfolio_feed_parser'
 require 'gmoney/gf_position_feed_parser'
 require 'gmoney/gf_request'
