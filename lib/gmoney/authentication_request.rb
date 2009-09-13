@@ -2,7 +2,7 @@ module GMoney
   class AuthenticationRequest
     class AuthError < StandardError;end
     
-    URL = 'https://www.google.com/accounts/ClientLogin'
+    AUTH_URL = 'https://www.google.com/accounts/ClientLogin'
     
     def initialize(email, password)
       @email = email
@@ -20,7 +20,7 @@ module GMoney
     end
     
     def uri
-      URI.parse(URL)
+      URI.parse(AUTH_URL)
     end
     
     def send_request(ssl_mode)

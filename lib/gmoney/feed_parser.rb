@@ -25,8 +25,7 @@ module GMoney
 				finance_data.attributes.each { |attr_name, attr_value| set_ivar.call(finance_object, attr_name, attr_value) }
 				parsed_entry.elements['gf:symbol'].each { |attr_name, attr_value| set_ivar.call(finance_object, attr_name, attr_value)} if options[:symbol]
 
-				#TODO - This is only going to work for USD for now.  Need to updated to make a "Money" object to store amount and currency code.
-				#currency code may be define by the portfolio_data and thus not important... sort it
+				#TODO - This is only going to work for USD for now.  Might need to updated to make a "Money" object to store amount and currency code.
 				finance_data.elements.each do |cg|
 					finance_object.instance_variable_set("@#{cg.name.camel_to_us}", cg.elements['gd:money'].attributes['amount'].to_f)
 				end

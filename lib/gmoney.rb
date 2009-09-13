@@ -1,4 +1,8 @@
-#figure out what this does
+# Justin Spradlin
+# www.fiascode.com
+# (C) 2009
+
+
 $:.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'date'
@@ -21,18 +25,14 @@ require 'gmoney/position_feed_parser'
 require 'gmoney/transaction'
 require 'gmoney/transaction_feed_parser'
 
-#TODO - Is it common practice to have your code wrapped in a module like "GMoney" to create a namespace?
-#ask garb guys at the next ruby hack night
 module GMoney
-  VERSION = '0.1.0'
+  VERSION = '0.0.1'
 	GF_URL = "https://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
   
 	HTTPOK = 200
 	HTTPCreated = 201
 	
-  # Returns the version string for the library.
-  #
   def self.version
     VERSION
   end

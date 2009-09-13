@@ -16,7 +16,7 @@ describe GMoney::AuthenticationRequest do
         'Passwd'      => 'fuzzybunnies',
         'accountType' => 'HOSTED_OR_GOOGLE',
         'service'     => 'finance',
-        'source'      => 'jspradlin-gmoney-001'      
+        'source'      => 'gmoney-001'      
       }
     
     request = GMoney::AuthenticationRequest.new('user@example.com', 'fuzzybunnies')
