@@ -27,7 +27,10 @@ module GMoney
   VERSION = '0.1.0'
 	GF_URL = "https://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
-
+  
+	HTTPOK = 200
+	HTTPCreated = 201
+	
   # Returns the version string for the library.
   #
   def self.version

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/jspradlin@gmail.com/portfolios/9</id>
+  <updated>2009-09-13T19:38:57.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#portfolio' />
+  <title type='text'>GMoney Test</title>
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9' />
+  <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9' />
+  <gd:feedLink href='http://finance.google.com/finance/feeds/jspradlin@gmail.com/portfolios/9/positions' />
+  <gf:portfolioData currencyCode='USD' gainPercentage='0.1667716917' return1w='0.05972647861' return1y='0.1546447982' return3m='0.1546447982' return3y='0.1546447982' return4w='0.1546447982' return5y='0.1546447982' returnOverall='0.1546447982'
+  returnYTD='0.1546447982'>
+    <gf:costBasis>
+      <gd:money amount='155915.25' currencyCode='USD' />
+    </gf:costBasis>
+    <gf:daysGain>
+      <gd:money amount='386.004875' currencyCode='USD' />
+    </gf:daysGain>
+    <gf:gain>
+      <gd:money amount='26002.25' currencyCode='USD' />
+    </gf:gain>
+    <gf:marketValue>
+      <gd:money amount='181917.5' currencyCode='USD' />
+    </gf:marketValue>
+  </gf:portfolioData>
+</entry>

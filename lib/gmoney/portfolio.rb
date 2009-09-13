@@ -1,5 +1,7 @@
 module GMoney
 	class Portfolio	
+		class PortfolioRequestError < StandardError;end
+	
 		attr_accessor :title, :currency_code, :positions
 		            	
 		attr_reader :id, :feed_link, :updated, :gain_percentage, :return1w, :return4w, :return3m, 
@@ -16,8 +18,12 @@ module GMoney
       portfolios = []
       
       response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{Session.auth_token}"}))
-      
-      portfolios = GFPortfolioFeedParser.parse_portfolio_feed(response.body) if response.status_code == 200
+
+			if response.status_code == HTTPOK
+	     	portfolios = GFPortfolioFeedParser.parse_portfolio_feed(response.body)
+	    else
+				raise PortfolioRequestError
+	    end
 
 			portfolios.each do |portfolio|
 				portfolio.positions = Position.find_by_url(portfolio.feed_link, {:with_returns => options[:with_returns]})
