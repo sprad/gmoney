@@ -16,7 +16,7 @@ describe GMoney::Portfolio do
 		
 		@gf_response = GMoney::GFResponse.new
 		@gf_response.status_code = 200
-		@gf_response.body = @feed
+		@gf_response.body = @default_feed
 		@positions = []
 	end	
 
@@ -35,7 +35,6 @@ describe GMoney::Portfolio do
 		
 		portfolios.size.should be_eql(3)
 		portfolios[0].cost_basis.should be_eql(2500.00)
-		portfolios[0].gain_percentage.should be_eql(28.3636)
 		portfolios[0].gain_percentage.should be_eql(28.3636)
 		portfolios[0].return4w.should be_eql(-0.1670616114)
 
@@ -79,7 +78,7 @@ describe GMoney::Portfolio do
 		position_urls = get_position_urls(@gf_response.body)
 		
 		position_urls.each do |position_url|
-		  GMoney::Position.should_receive(:find_by_url).with(position_url, {:with_returns => options[:with_returns]}).and_return(@positions)				
+		  GMoney::Position.should_receive(:find_by_url).with(position_url, {:with_returns => options[:with_returns]}).any_number_of_times.and_return(@positions)				
 		end
 	  	
 	 	GMoney::Portfolio.all(options)
