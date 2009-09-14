@@ -1,7 +1,7 @@
 module GMoney
-	class GFRequest
-		attr_accessor :url, :body, :method, :headers
-		
+  class GFRequest
+    attr_accessor :url, :body, :method, :headers
+    
     def initialize(url, options = {})
       @url = url
       options.each do |key, value|
@@ -11,5 +11,5 @@ module GMoney
       @method ||= :get
       @headers ||= {}
     end    
-	end	
+  end 
 end

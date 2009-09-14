@@ -5,58 +5,58 @@ describe GMoney::GFService do
     @feed = File.read('spec/fixtures/default_portfolios_feed.xml')
   end
 
-	before(:each) do
-		@gfrequest = GMoney::GFRequest.new('https://someurl.com')		
+  before(:each) do
+    @gfrequest = GMoney::GFRequest.new('https://someurl.com')   
     @gfresponse = GMoney::GFResponse.new
-		@gfresponse.status_code = 200
-		@gfresponse.body = @feed
-	end
-	
-	it "should be able to make a get request" do		
-		@gfrequest.body = ''
+    @gfresponse.status_code = 200
+    @gfresponse.body = @feed
+  end
+  
+  it "should be able to make a get request" do    
+    @gfrequest.body = ''
     response = request_helper(Net::HTTP::Get)
-		
-	  response.status_code.should be_eql(@gfresponse.status_code)
-	  response.body.should be_eql(@feed)
-	end
-	
-	it "should be able to make a post request" do
-		@gfrequest.body = 'body'
-		@gfrequest.method = :post
+    
+    response.status_code.should be_eql(@gfresponse.status_code)
+    response.body.should be_eql(@feed)
+  end
+  
+  it "should be able to make a post request" do
+    @gfrequest.body = 'body'
+    @gfrequest.method = :post
     @gfresponse.status_code = 201
-		
-		response = request_helper(Net::HTTP::Post)
-		
-	  response.status_code.should be_eql(@gfresponse.status_code)
-	  response.body.should be_eql(@feed)
-	end	
-	
-	it "should be able to make a put request" do
-		@gfrequest.body = 'body'
-		@gfrequest.method = :put
+    
+    response = request_helper(Net::HTTP::Post)
+    
+    response.status_code.should be_eql(@gfresponse.status_code)
+    response.body.should be_eql(@feed)
+  end 
+  
+  it "should be able to make a put request" do
+    @gfrequest.body = 'body'
+    @gfrequest.method = :put
 
-		response = request_helper(Net::HTTP::Put)
+    response = request_helper(Net::HTTP::Put)
 
-	  response.status_code.should be_eql(@gfresponse.status_code)
-	  response.body.should be_eql(@feed)
-	end
+    response.status_code.should be_eql(@gfresponse.status_code)
+    response.body.should be_eql(@feed)
+  end
 
-	it "should be able to make a delete request" do
-		@gfrequest.body = 'body'
-		@gfrequest.method = :delete
+  it "should be able to make a delete request" do
+    @gfrequest.body = 'body'
+    @gfrequest.method = :delete
 
-		response = request_helper(Net::HTTP::Delete)
+    response = request_helper(Net::HTTP::Delete)
 
-		response.status_code.should be_eql(@gfresponse.status_code)
-	end
+    response.status_code.should be_eql(@gfresponse.status_code)
+  end
 
-	it "should raise an argument error when an invalid method type is used" do
-		@gfrequest.body = 'body'
-		@gfrequest.method = :invalid
+  it "should raise an argument error when an invalid method type is used" do
+    @gfrequest.body = 'body'
+    @gfrequest.method = :invalid
 
-		lambda {
-		  response = error_request_helper(Net::HTTP::Get)
-	  }.should raise_error(ArgumentError)
+    lambda {
+      response = error_request_helper(Net::HTTP::Get)
+    }.should raise_error(ArgumentError)
   end
 
   it "should allow for request headers" do
@@ -70,16 +70,16 @@ describe GMoney::GFService do
     response.body.should be_eql(@feed)        
   end
   
-	def request_helper(class_type, with_headers = false)
-		set_url_expectations	  
+  def request_helper(class_type, with_headers = false)
+    set_url_expectations    
     http = set_http_expectations
-	  request = set_request_expecations(class_type)
+    request = set_request_expecations(class_type)
     set_header_expectations(request) if with_headers
     res = set_response_expecations
 
-	  http.should_receive(:request).with(request).and_return(res)	
-	  GMoney::GFService.send_request(@gfrequest)
-	end
+    http.should_receive(:request).with(request).and_return(res) 
+    GMoney::GFService.send_request(@gfrequest)
+  end
   
   def error_request_helper(class_type)
     set_url_expectations    

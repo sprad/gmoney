@@ -2,16 +2,16 @@ require File.join(File.dirname(__FILE__), '/spec_helper')
 
 describe GMoney::GFSession do
 
-	before(:each) do
-		@auth_request = mock('GMoney::AuthenticationRequest')
-	end
+  before(:each) do
+    @auth_request = mock('GMoney::AuthenticationRequest')
+  end
 
   it "should be able to retrieve an auth_token for a user" do   
     @auth_request.should_receive(:auth_token).with({}).and_return('toke')
     
     GMoney::AuthenticationRequest.should_receive(:new).with('email', 'password').once.and_return(@auth_request)
     GMoney::GFSession.login('email', 'password')
-		GMoney::GFSession.auth_token.should be_eql('toke')
+    GMoney::GFSession.auth_token.should be_eql('toke')
   end  
   
   it "should be able to retrieve an auth_token for a user with secure ssl" do
@@ -19,7 +19,7 @@ describe GMoney::GFSession do
     
     GMoney::AuthenticationRequest.should_receive(:new).with('email', 'password').once.and_return(@auth_request)
     GMoney::GFSession.login('email', 'password', :secure => true)
-		GMoney::GFSession.auth_token.should be_eql('secure toke')
+    GMoney::GFSession.auth_token.should be_eql('secure toke')
   end
   
   it "should retain the email address for this session" do

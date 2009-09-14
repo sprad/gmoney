@@ -4,11 +4,11 @@ CA_CERT_FILE = File.join(File.dirname(__FILE__), '..', 'fixtures/cacert.pem')
 
 describe GMoney::AuthenticationRequest do
 
-	before(:each) do
-		@request = GMoney::AuthenticationRequest.new('email', 'password')
-		@response = mock
-	end
-	
+  before(:each) do
+    @request = GMoney::AuthenticationRequest.new('email', 'password')
+    @response = mock
+  end
+  
   it "should have a collection of parameters that include the email and password" do
     expected = 
       {
@@ -24,7 +24,7 @@ describe GMoney::AuthenticationRequest do
   end
   
   it "should have a URI" do
-		@request.uri.should be_eql(URI.parse('https://www.google.com/accounts/ClientLogin'))
+    @request.uri.should be_eql(URI.parse('https://www.google.com/accounts/ClientLogin'))
   end
   
   it "should be able to send a request to the GAAPI service with proper ssl" do        
@@ -72,7 +72,7 @@ describe GMoney::AuthenticationRequest do
       "Auth=auth_token\n"
 
     @request.should_receive(:send_request).with(OpenSSL::SSL::VERIFY_NONE).and_return(stub(:body => response_data))
-		@request.auth_token.should be_eql('auth_token')
+    @request.auth_token.should be_eql('auth_token')
   end  
   
   it "should use VERIFY_PEER if auth_token needs to be secure" do
@@ -82,7 +82,7 @@ describe GMoney::AuthenticationRequest do
       "Auth=auth_token\n"
     
     @request.should_receive(:send_request).with(OpenSSL::SSL::VERIFY_PEER).and_return(stub(:body => response_data))
-		@request.auth_token(:secure => true).should be_eql('auth_token')        
+    @request.auth_token(:secure => true).should be_eql('auth_token')        
   end  
   
   it "should raise an exception when requesting an auth_token when the authorization fails" do
@@ -96,6 +96,6 @@ describe GMoney::AuthenticationRequest do
 
     Net::HTTP.stub!(:new).with('www.google.com', 443).and_return(http)
     
-		lambda { @request.send_request(OpenSSL::SSL::VERIFY_NONE) }.should raise_error(GMoney::AuthenticationRequest::AuthError)
+    lambda { @request.send_request(OpenSSL::SSL::VERIFY_NONE) }.should raise_error(GMoney::AuthenticationRequest::AuthError)
   end  
 end
