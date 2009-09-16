@@ -26,7 +26,7 @@ require 'gmoney/transaction'
 require 'gmoney/transaction_feed_parser'
 
 module GMoney
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
   GF_URL = "https://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
   

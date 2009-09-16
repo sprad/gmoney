@@ -15,7 +15,7 @@ task :specs do
   end
 end
 
-Echoe.new('gmoney', '0.0.1') do |p|
+Echoe.new('gmoney', '0.0.2') do |p|
   p.description = "A gem for interacting with the Google Finance API"
   p.url = "http://github.com/jspradlin/gmoney"
   p.author = "Justin Spradlin"
