@@ -9,8 +9,11 @@ A gem for interacting with the Google Finance API
 == Usage
 
 GMoney::GFSession.login('google username', 'password')
+
 portfolios = GMoney::Portfolio.all #or GMoney::Portfolio.all(:with_returns => true)
+
 #wait for a minute or so
+
 portfolios will now contain a list of all of your google finance portfolios, positions, and transactions
 
 == License
