@@ -3,10 +3,10 @@ require 'rake'
 require 'echoe'
 require 'spec/rake/spectask'
 
-task  :default => :spec
+task :default => :specs
 
 desc "Run the gmoney specs"
-task :spec do
+task :specs do
   Spec::Rake::SpecTask.new do |t|
     t.spec_files = FileList['spec/**/*_spec.rb']
     t.rcov = true
