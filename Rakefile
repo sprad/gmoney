@@ -2,6 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 require 'spec/rake/spectask'
+require 'lib/gmoney'
 
 task :default => :spec
 
@@ -17,7 +18,7 @@ end
 
 desc "Run the gmoney specs"
   namespace :gemify do
-  Echoe.new('gmoney', '0.0.2') do |p|
+  Echoe.new('gmoney', GMoney.version) do |p|
     p.description = "A gem for interacting with the Google Finance API"
     p.url = "http://github.com/jspradlin/gmoney"
     p.author = "Justin Spradlin"
