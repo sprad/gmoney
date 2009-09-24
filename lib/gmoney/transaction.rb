@@ -14,7 +14,7 @@ module GMoney
       if response.status_code == HTTPOK
         TransactionFeedParser.parse_transaction_feed(response.body)
       else
-        raise TransactionRequestError
+        raise TransactionRequestError, response.body
       end
     end     
   end

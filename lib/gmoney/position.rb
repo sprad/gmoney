@@ -21,7 +21,7 @@ module GMoney
       if response.status_code == HTTPOK
         positions = PositionFeedParser.parse_position_feed(response.body) if response.status_code == 200
       else
-        raise PositionRequestError
+        raise PositionRequestError, response.body
       end
 
       positions.each do |position|
