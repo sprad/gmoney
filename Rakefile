@@ -16,7 +16,7 @@ task :spec do
   end
 end
 
-desc "Run the gmoney specs"
+desc "Gemify GMoney"
   namespace :gemify do
   Echoe.new('gmoney', GMoney.version) do |p|
     p.description = "A gem for interacting with the Google Finance API"
