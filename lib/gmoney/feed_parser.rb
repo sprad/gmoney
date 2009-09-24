@@ -10,7 +10,7 @@ module GMoney
         target.instance_variable_set("@#{name.camel_to_us}", value)
       end
 
-      doc.elements.each('feed/entry') do |parsed_entry|
+      doc.elements.each('//entry') do |parsed_entry|
         finance_object = feed_class.new
         finance_data = parsed_entry.elements["gf:#{feed_class_string}Data"]
 
