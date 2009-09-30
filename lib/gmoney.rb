@@ -10,6 +10,7 @@ require 'net/http'
 require 'net/https'
 require 'rexml/document'
 
+require 'extensions/fixnum'
 require 'extensions/string'
 
 require 'gmoney/authentication_request'
@@ -29,6 +30,7 @@ module GMoney
   VERSION = '0.0.2'
   GF_URL = "https://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
+  GF_PORTFOLIO_FEED_URL = "#{GF_FEED_URL}/portfolios"
   
   HTTPOK = 200
   HTTPCreated = 201
