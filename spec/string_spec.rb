@@ -37,4 +37,35 @@ describe String do
     '$123.23'.is_numeric?.should be_false           
     '.'.is_numeric?.should be_false               
   end
+  
+  it "should be able to parse a portfolio id out of a string" do
+    1.portfolio_id.should be_eql("1")
+    "1".portfolio_id.should be_eql("1")
+    lambda { "asdf".portfolio_id }.should raise_error(String::PortfolioParseError)
+    lambda { "123/NASDAQ:GOOG/2134/23".portfolio_id }.should raise_error(String::PortfolioParseError)    
+    "124".portfolio_id.should be_eql("124")
+    "1/NASDAQ:GOOG".portfolio_id.should be_eql("1") 
+    "123/NASDAQ:GOOG".portfolio_id.should be_eql("123")
+    "123/NASDAQ:GOOG/23".portfolio_id.should be_eql("123")
+  end
+  
+  it "should be able to parse a position id out of a string" do
+    lambda { 1.position_id }.should raise_error(String::PositionParseError)
+    lambda { "1".position_id }.should raise_error(String::PositionParseError)
+    lambda { "asdf".position_id }.should raise_error(String::PositionParseError)
+    lambda {"123/NASDAQ:GOOG/2134/23".position_id}.should raise_error(String::PositionParseError)
+    "1/NASDAQ:GOOG".position_id.should be_eql("NASDAQ:GOOG")
+    "123/NASDAQ:GOOG".position_id.should be_eql("NASDAQ:GOOG")   
+    "123/NASDAQ:GOOG/23".position_id.should be_eql("NASDAQ:GOOG")
+  end
+  
+  it "should be able to parse a transaction id out of a string" do  
+    lambda { 1.transaction_id }.should raise_error(String::TransactionParseError)
+    lambda { "1".transaction_id }.should raise_error(String::TransactionParseError)
+    lambda { "asdf".transaction_id }.should raise_error(String::TransactionParseError)
+    lambda {"1/NASDAQ:GOOG".transaction_id}.should raise_error(String::TransactionParseError)
+    lambda {"123/NASDAQ:GOOG/asdf".transaction_id}.should raise_error(String::TransactionParseError)
+    lambda {"123/NASDAQ:GOOG/2134/23".transaction_id}.should raise_error(String::TransactionParseError)
+    "123/NASDAQ:GOOG/23".transaction_id.should be_eql("23")
+  end
 end
