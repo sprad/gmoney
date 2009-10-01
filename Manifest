@@ -5,6 +5,7 @@ gmoney.gemspec
 lib/extensions/fixnum.rb
 lib/extensions/string.rb
 lib/gmoney.rb
+lib/gmoney.rb~
 lib/gmoney/authentication_request.rb
 lib/gmoney/feed_parser.rb
 lib/gmoney/gf_request.rb
