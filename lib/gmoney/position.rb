@@ -16,6 +16,8 @@ module GMoney
       else
         @transactions ||= Transaction.find(@id.position_feed_id, options)
       end            
+      
+      @transactions.is_a?(Array) ? @transactions : [@transactions]      
     end
     
     def self.find_by_url(url, options = {})

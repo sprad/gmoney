@@ -22,6 +22,8 @@ module GMoney
       else
         @positions ||= Position.find(@id.portfolio_feed_id, options)
       end
+      
+      @positions.is_a?(Array) ? @positions : [@positions]
     end
        
     def self.retreive_portfolios(id, options = {})
