@@ -38,6 +38,14 @@ describe String do
     '.'.is_numeric?.should be_false               
   end
   
+  it "should be able to parse a portfolio id from an portfolio feed url" do
+    "http://finance.google.com/finance/feeds/user@example.com/portfolios/9".portfolio_feed_id.should be_eql("9")
+  end
+  
+  it "should be able to parse a position id from an position feed feed url" do
+    "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAG:GOOG".position_feed_id.should be_eql("9/NASDAG:GOOG")
+  end  
+  
   it "should be able to parse a portfolio id out of a string" do
     1.portfolio_id.should be_eql("1")
     "1".portfolio_id.should be_eql("1")
@@ -50,8 +58,8 @@ describe String do
   end
   
   it "should be able to parse a position id out of a string" do
-    lambda { 1.position_id }.should raise_error(String::PositionParseError)
-    lambda { "1".position_id }.should raise_error(String::PositionParseError)
+    1.position_id.should be_eql("")
+    "1".position_id.should be_eql("")
     lambda { "asdf".position_id }.should raise_error(String::PositionParseError)
     lambda {"123/NASDAQ:GOOG/2134/23".position_id}.should raise_error(String::PositionParseError)
     "1/NASDAQ:GOOG".position_id.should be_eql("NASDAQ:GOOG")
@@ -63,7 +71,7 @@ describe String do
     lambda { 1.transaction_id }.should raise_error(String::TransactionParseError)
     lambda { "1".transaction_id }.should raise_error(String::TransactionParseError)
     lambda { "asdf".transaction_id }.should raise_error(String::TransactionParseError)
-    lambda {"1/NASDAQ:GOOG".transaction_id}.should raise_error(String::TransactionParseError)
+    "1/NASDAQ:GOOG".transaction_id.should be_eql("")
     lambda {"123/NASDAQ:GOOG/asdf".transaction_id}.should raise_error(String::TransactionParseError)
     lambda {"123/NASDAQ:GOOG/2134/23".transaction_id}.should raise_error(String::TransactionParseError)
     "123/NASDAQ:GOOG/23".transaction_id.should be_eql("23")

@@ -20,6 +20,16 @@ class String
     Float self rescue false
   end
   
+  def portfolio_feed_id
+    self[self.rindex('/')+1..-1]
+  end
+  
+  def position_feed_id
+   portfolio = self[self.rindex('portfolios/')+11..index('/positions')-1]
+   position = self[rindex('/')+1..-1]
+   "#{portfolio}/#{position}"
+  end  
+  
   def portfolio_id
     if self[@@transaction_re_in] || self[@@position_re_in] || self[@@portfolio_re_in]
       self[@@portfolio_re]
@@ -28,8 +38,10 @@ class String
     end
   end
   
-  def position_id      
-    if self[@@position_re_in] 
+  def position_id
+    if self[@@portfolio_re_in] 
+      ""
+    elsif self[@@position_re_in] 
       self[self.index('/')+1..-1]  
     elsif self[@@transaction_re_in]
       self[self.index('/')+1..self.rindex('/')-1] 
@@ -39,7 +51,9 @@ class String
   end
   
   def transaction_id
-    if self[@@transaction_re_in]
+    if self[@@position_re_in] 
+      ""
+    elsif self[@@transaction_re_in]
       self[self.rindex('/')+1..-1] 
     else
       raise TransactionParseError

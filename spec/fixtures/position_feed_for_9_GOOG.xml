@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG</id>
+  <updated>2009-09-27T22:35:35.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#position' />
+  <title type='text'>Google Inc.</title>
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG' />
+  <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions' />
+  <gf:positionData gainPercentage='0.1742898491' return1w='0.002075448663' return1y='0.1665490533' return3m='0.1665490533' return3y='0.1665490533' return4w='0.1665490533' return5y='0.1665490533' returnOverall='0.1665490533' returnYTD='0.1665490533'
+  shares='325.0'>
+    <gf:costBasis>
+      <gd:money amount='136300.25' currencyCode='USD' />
+    </gf:costBasis>
+    <gf:daysGain>
+      <gd:money amount='-1394.24285' currencyCode='USD' />
+    </gf:daysGain>
+    <gf:gain>
+      <gd:money amount='23755.75' currencyCode='USD' />
+    </gf:gain>
+    <gf:marketValue>
+      <gd:money amount='160056.0' currencyCode='USD' />
+    </gf:marketValue>
+  </gf:positionData>
+  <gf:symbol exchange='NASDAQ' fullName='Google Inc.' symbol='GOOG' />
+</entry>

@@ -9,5 +9,5 @@ class Fixnum
   
   def transaction_id
     self.to_s.transaction_id
-  end
+  end    
 end
