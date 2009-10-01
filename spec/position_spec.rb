@@ -27,10 +27,10 @@ describe GMoney::Position do
     positions.size.should be_eql(5)
   end
 
-  it "should return a position with returns data is :with_returns == true" do
+  it "should return a position with returns data is :returns == true" do
     @gf_response.body = @feed_with_returns
 
-    positions = position_helper(@portfolio_id, {:with_returns => true})
+    positions = position_helper(@portfolio_id, {:returns => true})
     
     positions.size.should be_eql(5)
     positions[0].cost_basis.should be_eql(615.00)
@@ -91,7 +91,7 @@ describe GMoney::Position do
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
 
     url = "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}"
-    send_url = options[:with_returns] ? (url + '?returns=true') : url
+    send_url = options[:returns] ? (url + '?returns=true') : url
 
     GMoney::GFRequest.should_receive(:new).with(send_url, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
 

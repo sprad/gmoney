@@ -27,7 +27,7 @@ module GMoney
     def self.retreive_portfolios(id, options = {})
       url = GF_PORTFOLIO_FEED_URL
       url += "/#{id}" if id != :all
-      url += "?returns=true" if options[:with_returns]
+      url += "?returns=true" if options[:returns]
       portfolios = []
       
       response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))

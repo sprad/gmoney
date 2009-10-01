@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
-  <id>http://finance.google.com/finance/feeds/jspradlin@gmail.com/portfolios/9/positions/NASDAQ:GOOG/transactions/2</id>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/2</id>
   <updated>2009-09-12T18:22:44.000Z</updated>
   <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
   <title type='text'>2</title>

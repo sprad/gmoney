@@ -10,7 +10,7 @@ A gem for interacting with the Google Finance API
 
 GMoney::GFSession.login('google username', 'password')
 
-portfolios = GMoney::Portfolio.all #or GMoney::Portfolio.all(:with_returns => true)
+portfolios = GMoney::Portfolio.all #or GMoney::Portfolio.all(:returns => true)
 
 #wait for a minute or so
 

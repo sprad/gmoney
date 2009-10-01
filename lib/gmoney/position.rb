@@ -20,7 +20,7 @@ module GMoney
     
     def self.find_by_url(url, options = {})
       positions = []
-      url += "?returns=true" if options[:with_returns]
+      url += "?returns=true" if options[:returns]
       
       response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
       

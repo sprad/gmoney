@@ -27,11 +27,11 @@ describe GMoney::Portfolio do
     portfolios.size.should be_eql(3)
   end
 
-  it "should return a portfolio with returns data is :with_returns == true" do
+  it "should return a portfolio with returns data is :returns == true" do
     @url = 'https://finance.google.com/finance/feeds/default/portfolios?returns=true'
     @gf_response.body = @feed_with_returns
 
-    portfolios = portfolio_helper(@url, :all, {:with_returns => true})
+    portfolios = portfolio_helper(@url, :all, {:returns => true})
     
     portfolios.size.should be_eql(3)
     portfolios[0].cost_basis.should be_eql(2500.00)
