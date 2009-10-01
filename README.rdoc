@@ -4,17 +4,61 @@ A gem for interacting with the Google Finance API
 
 == Install
 
+  gem install gmoney
+  
+  or
+  
   gem install jspradlin-gmoney --source http://gems.github.com
   
 == Usage
 
-GMoney::GFSession.login('google username', 'password')
+Login
+-----
+  
+    > GMoney::GFSession.login('google username', 'password')
 
-portfolios = GMoney::Portfolio.all #or GMoney::Portfolio.all(:returns => true)
+Portfolios
+--------
 
-#wait for a minute or so
+    > portfolios = GMoney::Portfolio.all #returns all of a users portfolios
+    > portfolio = GMoney::Portfolio.find(9) #returns a specific portfolio
+    
+    > positions = portfolio.positions #returns an Array of the Positions held within a given portfolio
+     
+Positions    
+--------
 
-portfolios will now contain a list of all of your google finance portfolios, positions, and transactions
+    > positions = GMoney::Position.find(9) #returns all of a users positions within a given portfolio, i.e. Portfolio "9"
+    > position = GMoney::Position.find("9/NASDAQ:GOOG") #returns a specific position within a given portfolio
+    
+    > transactions = position.transactions #returns an Array of the Transactions within a given position
+
+Transactions
+--------
+
+    > transactions = GMoney::Transaction.find("9/NASDAQ:GOOG") #returns all of a users transactions within a given position
+    > transaction = GMoney::Transaction.find("9/NASDAQ:GOOG/2") #returns a specific transaction within a given position
+    
+----------
+
+Options parameter
+
+  
+  The following methods:
+    Portfolio.all
+    Portfolio.find
+    portfolio.positions #where portfolio is an instance of the Portfolio class
+
+    Position.find
+    position.transactions #where position is an instance of the Position class
+    
+    Transaction.find
+   
+  all take a hash as an optional last parameter.  Valid values for this hash are:
+
+  * :returns - By default Google does not return a comprehensive list of returns data.  Set this parameter to true to access this information.
+  * :refresh - GMoney caches the data returned from Google by default.  Set :refresh => true if you would like to get the latest data.
+  * :eager - GMoney lazily loads children data (i.e. positions for a given Portfolio).  If you would like to load all of this data at once set :eager => true
 
 == License
 
