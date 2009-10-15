@@ -6,10 +6,6 @@ A gem for interacting with the Google Finance API
 
   gem install gmoney
   
-  or
-  
-  gem install jspradlin-gmoney --source http://gems.github.com
-  
 == Usage
 
 Login
