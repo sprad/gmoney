@@ -1,6 +1,7 @@
 module GMoney
   class Transaction
     class TransactionRequestError < StandardError; end
+    class TransactionDeleteError < StandardError;end    
     
     attr_reader :id, :updated, :title
 
@@ -8,6 +9,15 @@ module GMoney
     
     def self.find(id, options={})   
       find_by_url("#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}", options)    
+    end    
+    
+    def self.delete(id)
+      delete_transaction(id)
+    end
+    
+    def destroy
+      Transaction.delete(@id.transaction_feed_id)
+      freeze
     end    
     
     def self.find_by_url(url, options={})
@@ -26,6 +36,13 @@ module GMoney
       transactions
     end
     
-    private_class_method :find_by_url
+    def self.delete_transaction(id)    
+      url = "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
+      puts url
+      response = GFService.send_request(GFRequest.new(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      raise TransactionDeleteError, response.body if response.status_code != HTTPOK
+    end
+    
+    private_class_method :find_by_url, :delete_transaction
   end
 end
