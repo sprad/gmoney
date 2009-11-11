@@ -1,6 +1,7 @@
 module GMoney
   class Portfolio 
     class PortfolioRequestError < StandardError;end
+    class PortfolioDeleteError < StandardError;end
   
     attr_accessor :title, :currency_code
                   
@@ -25,7 +26,16 @@ module GMoney
       
       @positions.is_a?(Array) ? @positions : [@positions]
     end
-       
+    
+    def self.delete(id)
+      delete_portfolio(id)
+    end
+    
+    def destroy
+      Portfolio.delete(@id.portfolio_feed_id)
+      freeze
+    end
+      
     def self.retreive_portfolios(id, options = {})
       url = GF_PORTFOLIO_FEED_URL
       url += "/#{id}" if id != :all
@@ -45,8 +55,14 @@ module GMoney
       return portfolios[0] if portfolios.size == 1
       
       portfolios        
-    end        
+    end
     
-    private_class_method :retreive_portfolios         
+    def self.delete_portfolio(id)
+      url = "#{GF_PORTFOLIO_FEED_URL}/#{id}"
+      response = GFService.send_request(GFRequest.new(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      raise PortfolioDeleteError, response.body if response.status_code != HTTPOK
+    end
+    
+    private_class_method :retreive_portfolios, :delete_portfolio
   end
 end

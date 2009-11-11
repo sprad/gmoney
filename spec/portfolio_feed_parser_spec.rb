@@ -31,7 +31,8 @@ describe GMoney::PortfolioFeedParser do
   it "should create Portfolio objects with valid numeric data types for the returns" do
     @portfolios_with_returns.each do |portfolio|
       portfolio.public_methods(false).each do |pm|
-        if !(['id', 'feed_link', 'updated', 'title', 'currency_code', 'positions'].include? pm) && !(pm.include?('='))
+        if (['gain_percentage', 'return1w', 'return4w', 'return3m', 'return_ytd', 'return1y', 'return3y', 'return5y', 
+             'return_overall', 'cost_basis', 'days_gain', 'gain', 'market_value'].include? pm) && !(pm.include?('='))
           return_val = portfolio.send(pm)
           return_val.should be_instance_of(Float) if return_val
         end

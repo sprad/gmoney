@@ -93,6 +93,47 @@ describe GMoney::Portfolio do
     portfolio.positions.size.should be_eql(2)
   end  
   
+  it "should delete portfolios using a class method and id" do
+    @gf_request = GMoney::GFRequest.new(@url)
+    @gf_request.method = :delete
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 200
+    
+    portfolio_delete_helper("#{@url}/19")
+    
+    GMoney::Portfolio.delete(19).should be_nil
+  end
+  
+  it "should delete portfolios by calling destroy on an instance of a portfolio" do
+    @gf_request = GMoney::GFRequest.new(@url)
+    @gf_request.method = :delete
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 200
+    
+    portfolio = GMoney::Portfolio.new
+    portfolio.instance_variable_set("@id", "#{@url}/24")
+     
+    portfolio_delete_helper("#{@url}/24")
+
+    portfolio_return = portfolio.destroy
+    portfolio.should be_eql(portfolio)
+    portfolio_return.frozen?.should be_true
+  end
+  
+  it "should raise a PortfolioDeleteError when there is an attempt to delete an portfolio that doesn't exist')" do
+    @gf_request = GMoney::GFRequest.new(@url)
+    @gf_request.method = :delete
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 400
+    @gf_request.body = "Invalid portfolio ID."
+
+    portfolio_delete_helper("#{@url}/asdf")
+
+    lambda { GMoney::Portfolio.delete("asdf") }.should raise_error(GMoney::Portfolio::PortfolioDeleteError, @gf_response.body)
+  end   
 
   def portfolio_helper(url, id = nil, options = {})
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
@@ -110,4 +151,12 @@ describe GMoney::Portfolio do
       
     portfolios = id ? GMoney::Portfolio.find(id, options) : GMoney::Portfolio.all(options)
   end
+  
+  def portfolio_delete_helper(url)
+    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
+
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
+
+    GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
+  end  
 end
