@@ -41,7 +41,49 @@ describe GMoney::Transaction do
   
     transaction.commission.should be_eql(50.0)
     transaction.price.should be_eql(400.0)
-  end    
+  end  
+  
+  it "should delete transactions using a class method and id" do
+    @gf_request = GMoney::GFRequest.new("#{@url}/24")
+    @gf_request.method = :post
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 200
+    
+    transaction_delete_helper("#{@url}/24")
+    
+    GMoney::Transaction.delete('9/NASDAQ:GOOG/24').should be_nil
+  end
+
+  it "should delete transactions when calling destroy on an instance of a transaction" do
+    @gf_request = GMoney::GFRequest.new("#{@url}/21")
+    @gf_request.method = :post
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 200
+    
+    transaction = GMoney::Transaction.new
+    transaction.instance_variable_set("@id", "#{@url}/21")
+     
+    transaction_delete_helper("#{@url}/21")
+
+    transaction_return = transaction.destroy
+    transaction_return.should be_eql(transaction)
+    transaction_return.frozen?.should be_true
+  end
+
+  it "should raise a TransactionDeleteError when there is an attempt to delete a transaction from a portfolio that doesn't exist')" do
+    @gf_request = GMoney::GFRequest.new("#{@url}/24")
+    @gf_request.method = :post
+    
+    @gf_response = GMoney::GFResponse.new
+    @gf_response.status_code = 400
+    @gf_request.body = "Invalid Portfolio"
+
+    transaction_delete_helper("#{@url}/24")
+
+    lambda { GMoney::Transaction.delete("9/NASDAQ:GOOG/24") }.should raise_error(GMoney::Transaction::TransactionDeleteError, @gf_response.body)
+  end
   
   def transaction_helper(id, options={})
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
@@ -54,4 +96,12 @@ describe GMoney::Transaction do
     
     GMoney::Transaction.find(id, options)
   end
+  
+  def transaction_delete_helper(url)
+    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
+
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=toke", "X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
+
+    GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
+  end    
 end

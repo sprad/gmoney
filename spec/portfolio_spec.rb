@@ -118,7 +118,7 @@ describe GMoney::Portfolio do
     portfolio_delete_helper("#{@url}/24")
 
     portfolio_return = portfolio.destroy
-    portfolio.should be_eql(portfolio)
+    portfolio_return.should be_eql(portfolio)
     portfolio_return.frozen?.should be_true
   end
   

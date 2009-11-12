@@ -30,6 +30,13 @@ class String
    "#{portfolio}/#{position}"
   end  
   
+  def transaction_feed_id
+   portfolio = self[self.rindex('portfolios/')+11..index('/positions')-1]
+   position = self[self.rindex('positions/')+10..index('/transactions')-1]
+   transaction = self[rindex('/')+1..-1]
+   "#{portfolio}/#{position}/#{transaction}"
+  end  
+  
   def portfolio_id
     if self[@@transaction_re_in] || self[@@position_re_in] || self[@@portfolio_re_in]
       self[@@portfolio_re]

@@ -36,10 +36,10 @@ module GMoney
       transactions
     end
     
+    #if you are behind a firewall, sometimes DELETE commands won't work... i.e. panera?
     def self.delete_transaction(id)    
       url = "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
-      puts url
-      response = GFService.send_request(GFRequest.new(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "X-HTTP-Method-Override" => "DELETE"}))
       raise TransactionDeleteError, response.body if response.status_code != HTTPOK
     end
     

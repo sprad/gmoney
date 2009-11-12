@@ -42,9 +42,14 @@ describe String do
     "http://finance.google.com/finance/feeds/user@example.com/portfolios/9".portfolio_feed_id.should be_eql("9")
   end
   
-  it "should be able to parse a position id from an position feed feed url" do
+  it "should be able to parse a position id from an position feed url" do
     "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAG:GOOG".position_feed_id.should be_eql("9/NASDAG:GOOG")
   end  
+  
+  it "should be able to parse a transaction id from an transaction feed url" do
+    "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAG:GOOG/transactions/12".transaction_feed_id.should be_eql("9/NASDAG:GOOG/12")
+    "http://finance.google.com/finance/feeds/user@example.com/portfolios/12/positions/NYSE:GLD/transactions/3".transaction_feed_id.should be_eql("12/NYSE:GLD/3")    
+  end    
   
   it "should be able to parse a portfolio id out of a string" do
     1.portfolio_id.should be_eql("1")
