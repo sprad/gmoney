@@ -10,6 +10,7 @@ describe GMoney::Position do
   
   before(:each) do
     @portfolio_id = '9'
+    @url = 'https://finance.google.com/finance/feeds/default/portfolios/9/positions' 
   
     @gf_request = GMoney::GFRequest.new(@portfolio_id)
     @gf_request.method = :get   
@@ -87,6 +88,51 @@ describe GMoney::Position do
     position.transactions(:eager => true).size.should be_eql(3)
   end
   
+  
+  it "should delete positions (with a single transaction) using a class method and id" do
+    @trans = GMoney::Transaction.new
+    @trans.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG/transactions/21")
+    
+    position_delete_helper('9/NASDAQ:GOOG')
+        
+    GMoney::Position.delete('9/NASDAQ:GOOG').should be_nil
+  end
+  
+  it "should delete positions (with multiple transactions) using a class method and id" do
+    tran1 = GMoney::Transaction.new
+    tran1.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG/transactions/21")    
+    tran2 = GMoney::Transaction.new
+    tran2.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG/transactions/22")    
+    @trans = [tran1, tran2]
+    
+    position_delete_helper('9/NASDAQ:GOOG')
+    
+    GMoney::Position.delete('9/NASDAQ:GOOG').should be_nil
+  end
+  
+  it "should delete positions when calling destroy on an instance of a position" do
+    position = GMoney::Position.new
+    position.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG")
+     
+    @trans = GMoney::Transaction.new
+    @trans.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG/transactions/21")
+
+    position_delete_helper('9/NASDAQ:GOOG')
+
+    position_return = position.destroy
+    position_return.should be_eql(position)
+    position_return.frozen?.should be_true
+  end  
+
+  it "should raise a PositionDeleteError when there is an attempt to delete a position with a bad position id')" do
+    lambda { GMoney::Position.delete("9/NASDAQ:GOOG/asdf") }.should raise_error(GMoney::Position::PositionDeleteError, 'Invalid Position ID')
+  end  
+  
+  it "should raise a PositionDeleteError when there is an attempt to delete a position with a bad position id')" do
+    GMoney::Transaction.should_receive(:find).with('9/NYSE:C').and_raise(GMoney::Transaction::TransactionRequestError.new('No position exists with ticker NYSE:C'))
+    lambda { GMoney::Position.delete("9/NYSE:C") }.should raise_error(GMoney::Position::PositionDeleteError, 'No position exists with ticker NYSE:C')
+  end    
+  
   def position_helper(id, options = {})
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
 
@@ -106,4 +152,14 @@ describe GMoney::Position do
       
     GMoney::Position.find(id, options)
   end
+  
+  def position_delete_helper(id)
+    GMoney::Transaction.should_receive(:find).with(id).and_return(@trans)    
+    
+    if @trans.class == GMoney::Transaction
+      @trans.should_receive(:destroy)
+    else
+      @trans.each {|t| t.should_receive(:destroy)}      
+    end 
+  end      
 end

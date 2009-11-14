@@ -56,10 +56,13 @@ module GMoney
       
       portfolios        
     end
-    
+   
+    #If you are working behind some firewalls HTTP DELETE request won't work.
+    #To overcome this problem the google doc say to use a post request with
+    #the X-HTTP-Method-Override set to "DELETE"    
     def self.delete_portfolio(id)
       url = "#{GF_PORTFOLIO_FEED_URL}/#{id}"
-      response = GFService.send_request(GFRequest.new(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "X-HTTP-Method-Override" => "DELETE"}))
       raise PortfolioDeleteError, response.body if response.status_code != HTTPOK
     end
     

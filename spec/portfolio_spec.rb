@@ -155,7 +155,7 @@ describe GMoney::Portfolio do
   def portfolio_delete_helper(url)
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
 
-    GMoney::GFRequest.should_receive(:new).with(url, :method => :delete, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=toke", "X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
   end  

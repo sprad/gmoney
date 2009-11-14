@@ -1,6 +1,8 @@
 module GMoney
   class Position
     class PositionRequestError < StandardError; end
+    class PositionDeleteError < StandardError; end
+    
     attr_reader :id, :updated, :title, :feed_link, :exchange, :symbol, :shares, 
                 :full_name, :gain_percentage, :return1w, :return4w, :return3m, 
                 :return_ytd, :return1y, :return3y, :return5y, :return_overall, 
@@ -18,6 +20,15 @@ module GMoney
       end            
       
       @transactions.is_a?(Array) ? @transactions : [@transactions]      
+    end
+
+    def self.delete(id)
+      delete_position(id)
+    end
+    
+    def destroy
+      Position.delete(@id.position_feed_id)
+      freeze
     end
     
     def self.find_by_url(url, options = {})
@@ -39,6 +50,24 @@ module GMoney
       positions              
     end 
     
-    private_class_method :find_by_url
+    #In order to delete a position you must delete all the transactions that fall under
+    #that position.
+    def self.delete_position(id)
+      begin
+        trans = Transaction.find("#{id.portfolio_id}/#{id.position_id}")
+        if trans.class == Transaction
+          trans.destroy
+        else
+          trans.each {|t| t.destroy }
+        end
+      rescue Transaction::TransactionRequestError => e
+        raise PositionDeleteError, e.message
+      rescue String::ParseError
+        raise PositionDeleteError, 'Invalid Position ID'
+      end
+      nil
+    end
+    
+    private_class_method :find_by_url, :delete_position
   end
 end

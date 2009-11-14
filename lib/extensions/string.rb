@@ -1,7 +1,8 @@
 class String
-  class PortfolioParseError < StandardError; end
-  class PositionParseError < StandardError; end
-  class TransactionParseError < StandardError; end
+  class ParseError < StandardError; end
+  class PortfolioParseError < ParseError; end
+  class PositionParseError < ParseError; end
+  class TransactionParseError < ParseError; end
   
   @@portfolio_re = /\d+/
   @@portfolio_re_in = /^\d+$/  

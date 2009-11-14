@@ -28,8 +28,8 @@ describe GMoney::PositionFeedParser do
   
   it "should create Position objects with valid numeric data types for the returns" do
     @positions_with_returns.each do |position|
-      position.public_methods(false).each do |pm|     
-        if !(['id', 'feed_link', 'updated', 'title', 'exchange', 'symbol', 'full_name', 'transactions'].include? pm) && !(pm.include?('='))
+      position.public_methods(false).each do |pm|           
+        if (['shares', 'gain_percentage', 'return1w', 'return4w', 'return3m', 'return_ytd', 'return1y', 'return3y', 'return5y', 'return_overall', 'cost_basis', 'days_gain', 'gain', 'market_value'].include? pm) && !(pm.include?('='))
           return_val = position.send(pm)
           return_val.should be_instance_of(Float) if return_val
         end
