@@ -28,7 +28,7 @@ Portfolios
     or
 
     > portfolio = GMoney::Portfolio.find 2
-    > portfolio.destroy #call destroy on an instance of a portfolio
+    > portfolio.delete #call delete on an instance of a portfolio
   
      
 Positions    
@@ -46,7 +46,7 @@ Positions
     or
 
     > position = GMoney::Position.find '2/NASDAQ:GOOG'
-    > position.destroy #call destroy on an instance of a position
+    > position.delete #call delete on an instance of a position
 
 Transactions
 --------
@@ -61,7 +61,7 @@ Transactions
     or
 
     > transaction = GMoney::Transaction.find '2/NASDAQ:GOOG/1'
-    > transaction.destroy #call destroy on an instance of a transaction    
+    > transaction.delete #call delete on an instance of a transaction    
     
 ----------
 
