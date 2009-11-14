@@ -34,6 +34,7 @@ Portfolios
 Positions    
 --------
 
+  Reading
     > positions = GMoney::Position.find(9) #returns all of a users positions within a given portfolio, i.e. Portfolio "9"
     > position = GMoney::Position.find("9/NASDAQ:GOOG") #returns a specific position within a given portfolio
     
@@ -50,6 +51,7 @@ Positions
 Transactions
 --------
 
+  Reading
     > transactions = GMoney::Transaction.find("9/NASDAQ:GOOG") #returns all of a users transactions within a given position
     > transaction = GMoney::Transaction.find("9/NASDAQ:GOOG/2") #returns a specific transaction within a given position
     
