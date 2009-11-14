@@ -31,7 +31,7 @@ module GMoney
       delete_portfolio(id)
     end
     
-    def destroy
+    def delete
       Portfolio.delete(@id.portfolio_feed_id)
       freeze
     end

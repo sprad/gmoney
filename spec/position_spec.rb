@@ -110,7 +110,7 @@ describe GMoney::Position do
     GMoney::Position.delete('9/NASDAQ:GOOG').should be_nil
   end
   
-  it "should delete positions when calling destroy on an instance of a position" do
+  it "should delete positions when calling delete on an instance of a position" do
     position = GMoney::Position.new
     position.instance_variable_set("@id", "#{@url}/NASDAQ:GOOG")
      
@@ -119,7 +119,7 @@ describe GMoney::Position do
 
     position_delete_helper('9/NASDAQ:GOOG')
 
-    position_return = position.destroy
+    position_return = position.delete
     position_return.should be_eql(position)
     position_return.frozen?.should be_true
   end  
@@ -157,9 +157,9 @@ describe GMoney::Position do
     GMoney::Transaction.should_receive(:find).with(id).and_return(@trans)    
     
     if @trans.class == GMoney::Transaction
-      @trans.should_receive(:destroy)
+      @trans.should_receive(:delete)
     else
-      @trans.each {|t| t.should_receive(:destroy)}      
+      @trans.each {|t| t.should_receive(:delete)}      
     end 
   end      
 end

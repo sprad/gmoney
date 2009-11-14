@@ -55,7 +55,7 @@ describe GMoney::Transaction do
     GMoney::Transaction.delete('9/NASDAQ:GOOG/24').should be_nil
   end
 
-  it "should delete transactions when calling destroy on an instance of a transaction" do
+  it "should delete transactions when calling delete on an instance of a transaction" do
     @gf_request = GMoney::GFRequest.new("#{@url}/21")
     @gf_request.method = :post
     
@@ -67,7 +67,7 @@ describe GMoney::Transaction do
      
     transaction_delete_helper("#{@url}/21")
 
-    transaction_return = transaction.destroy
+    transaction_return = transaction.delete
     transaction_return.should be_eql(transaction)
     transaction_return.frozen?.should be_true
   end

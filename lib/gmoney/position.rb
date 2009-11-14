@@ -26,7 +26,7 @@ module GMoney
       delete_position(id)
     end
     
-    def destroy
+    def delete
       Position.delete(@id.position_feed_id)
       freeze
     end
@@ -56,9 +56,9 @@ module GMoney
       begin
         trans = Transaction.find("#{id.portfolio_id}/#{id.position_id}")
         if trans.class == Transaction
-          trans.destroy
+          trans.delete
         else
-          trans.each {|t| t.destroy }
+          trans.each {|t| t.delete }
         end
       rescue Transaction::TransactionRequestError => e
         raise PositionDeleteError, e.message

@@ -105,7 +105,7 @@ describe GMoney::Portfolio do
     GMoney::Portfolio.delete(19).should be_nil
   end
   
-  it "should delete portfolios by calling destroy on an instance of a portfolio" do
+  it "should delete portfolios by calling delete on an instance of a portfolio" do
     @gf_request = GMoney::GFRequest.new(@url)
     @gf_request.method = :delete
     
@@ -117,7 +117,7 @@ describe GMoney::Portfolio do
      
     portfolio_delete_helper("#{@url}/24")
 
-    portfolio_return = portfolio.destroy
+    portfolio_return = portfolio.delete
     portfolio_return.should be_eql(portfolio)
     portfolio_return.frozen?.should be_true
   end

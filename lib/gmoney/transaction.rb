@@ -15,7 +15,7 @@ module GMoney
       delete_transaction(id)
     end
     
-    def destroy
+    def delete
       Transaction.delete(@id.transaction_feed_id)
       freeze
     end    
