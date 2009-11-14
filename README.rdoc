@@ -6,24 +6,30 @@ A gem for interacting with the Google Finance API
 
   gem install gmoney
   
-  or
-  
-  gem install jspradlin-gmoney --source http://gems.github.com
-  
 == Usage
 
 Login
 -----
   
-    > GMoney::GFSession.login('google username', 'password')
+    GMoney::GFSession.login('google username', 'password')
 
 Portfolios
 --------
 
+  Reading
     > portfolios = GMoney::Portfolio.all #returns all of a users portfolios
     > portfolio = GMoney::Portfolio.find(9) #returns a specific portfolio
     
     > positions = portfolio.positions #returns an Array of the Positions held within a given portfolio
+    
+  Deleting
+    > GMoney::Portfolio.delete 2
+  
+    or
+
+    > portfolio = GMoney::Portfolio.find 2
+    > portfolio.destroy #call destroy on an instance of a portfolio
+  
      
 Positions    
 --------
@@ -32,12 +38,28 @@ Positions
     > position = GMoney::Position.find("9/NASDAQ:GOOG") #returns a specific position within a given portfolio
     
     > transactions = position.transactions #returns an Array of the Transactions within a given position
+    
+  Deleting
+    > GMoney::Position.delete '2/NASDAQ:GOOG'
+  
+    or
+
+    > position = GMoney::Position.find '2/NASDAQ:GOOG'
+    > position.destroy #call destroy on an instance of a position
 
 Transactions
 --------
 
     > transactions = GMoney::Transaction.find("9/NASDAQ:GOOG") #returns all of a users transactions within a given position
     > transaction = GMoney::Transaction.find("9/NASDAQ:GOOG/2") #returns a specific transaction within a given position
+    
+  Deleting
+    > GMoney::Transaction.delete '2/NASDAQ:GOOG/1'
+  
+    or
+
+    > transaction = GMoney::Transaction.find '2/NASDAQ:GOOG/1'
+    > transaction.destroy #call destroy on an instance of a transaction    
     
 ----------
 
