@@ -29,7 +29,7 @@ Portfolios
     
   Updating
     > portfolio = GMoney::Portfolio.find 9
-    > portfolio.title = "My Update Portfolio Title"
+    > portfolio.title = "My Updated Portfolio Title"
     > portfolio.save #returns portfolio object        
     
   Deleting
@@ -60,6 +60,7 @@ Positions
 
     > position = GMoney::Position.find '2/NASDAQ:GOOG'
     > position.delete #call delete on an instance of a position
+
 
 Transactions
 --------
