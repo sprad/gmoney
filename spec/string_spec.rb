@@ -81,4 +81,12 @@ describe String do
     lambda {"123/NASDAQ:GOOG/2134/23".transaction_id}.should raise_error(String::TransactionParseError)
     "123/NASDAQ:GOOG/23".transaction_id.should be_eql("23")
   end
+  
+  it "should be able to detect blank strings" do  
+    nil.blank?.should be_true
+    "".blank?.should be_true
+    "    ".blank?.should be_true    
+    "  a  ".blank?.should be_false
+    "234".blank?.should be_false  
+  end
 end

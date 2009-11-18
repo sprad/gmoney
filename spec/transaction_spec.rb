@@ -4,6 +4,7 @@ describe GMoney::Transaction do
   before(:all) do
     @goog_feed = File.read('spec/fixtures/transactions_feed_for_GOOG.xml')
     @goog_feed_1 = File.read('spec/fixtures/transaction_feed_for_GOOG_1.xml')
+    @new_transaction_feed = File.read('spec/fixtures/new_transaction_feed.xml')
   end
   
   before(:each) do
@@ -85,6 +86,140 @@ describe GMoney::Transaction do
     lambda { GMoney::Transaction.delete("9/NASDAQ:GOOG/24") }.should raise_error(GMoney::Transaction::TransactionDeleteError, @gf_response.body)
   end
   
+  it "should create only valid transactions" do
+    trans = GMoney::Transaction.new
+    
+    #Make is_valid_transaction? method public for testing purposes
+    def trans.public_is_valid_transaction?(*args)
+      is_valid_transaction?(*args)
+    end 
+    
+    trans.portfolio = 1
+    trans.ticker = "NYSE:GLD"    
+    trans.type = 'Buy'
+    trans.public_is_valid_transaction?.should be_true
+    
+    trans.type = 'Sell'
+    trans.public_is_valid_transaction?.should be_true    
+    
+    trans.type = 'Buy to Cover'
+    trans.public_is_valid_transaction?.should be_true    
+
+    trans.type = 'Sell Short'
+    trans.public_is_valid_transaction?.should be_true        
+    
+    trans.portfolio = 1
+    trans.ticker = "NYSE:GLD"    
+    trans.type = nil
+    trans.public_is_valid_transaction?.should be_false
+    
+    trans.portfolio = 1
+    trans.ticker = "NYSE:GLD"    
+    trans.type = 'buy'
+    trans.public_is_valid_transaction?.should be_false
+    
+    trans.portfolio = 1
+    trans.ticker = "   "
+    trans.type = 'Buy'    
+    trans.public_is_valid_transaction?.should be_false
+    
+    trans.portfolio = "  "
+    trans.ticker = "NYSE:GLD"
+    trans.type = 'Buy'    
+    trans.public_is_valid_transaction?.should be_false    
+    
+    trans.portfolio = nil
+    trans.ticker = nil
+    trans.type = nil
+    trans.public_is_valid_transaction?.should be_false        
+    
+    trans.portfolio = nil
+    trans.ticker = "NYSE:GLD"
+    trans.type = 'Buy'    
+    trans.public_is_valid_transaction?.should be_false        
+    
+    trans.portfolio = "1"
+    trans.ticker = nil
+    trans.type = 'Buy'    
+    trans.public_is_valid_transaction?.should be_false                
+  end
+
+  it "should save a transaction" do
+    transaction = GMoney::Transaction.new
+    transaction.portfolio = 9
+    transaction.ticker = 'NASDAQ:GOOG'
+    transaction.type = 'Buy'
+    transaction.shares = 50
+    transaction.price = 450.0
+    transaction.commission = 20.0
+    transaction.date = '2009-11-17T00:00:00.000'
+    
+    @gf_response.status_code = 200
+    @gf_response.body = @new_transaction_feed
+
+    transaction_save_helper(transaction)
+
+    transaction_return = transaction.save
+    
+    transaction_return.id.should be_eql('http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12')
+    transaction_return.commission.should be_eql(20.0)
+    transaction_return.price.should be_eql(450.0)
+    transaction_return.type.should be_eql('Buy')
+  end
+
+  it "should update a transaction when an @id is already set" do
+    transaction = GMoney::Transaction.new
+    transaction.portfolio = 9
+    transaction.ticker = 'NASDAQ:GOOG'
+    transaction.type = 'Buy'
+    transaction.shares = 50
+    transaction.price = 450.0
+    transaction.commission = 20.0
+    transaction.date = '2009-11-17T00:00:00.000'
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    
+    @gf_response.status_code = 201
+    @gf_response.body = @new_transaction_feed
+
+    transaction_save_helper(transaction)
+    
+    transaction.save
+  end
+ 
+  it "should raise a TransactionSaveError if the transaction type, ticker, or portfolio are not set" do
+    transaction = GMoney::Transaction.new
+    
+    lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")    
+    
+    transaction.portfolio = 9
+    transaction.type = 'Buy'
+    lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")        
+    
+    transaction.portfolio = nil
+    transaction.ticker = 'NASDAQ:GOOG'
+    transaction.type = 'Buy'
+    lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")            
+  end
+  
+  it "should give you a warning from Google if your transaction attributes are bad" do   
+    transaction = GMoney::Transaction.new
+    transaction.portfolio = 9
+    transaction.ticker = 'asdfasd:asdfs' #invalid ticker
+    transaction.type = 'Buy'
+    transaction.shares = 50
+    transaction.price = 450.0
+    transaction.commission = 20.0
+    transaction.date = '2009-11-17T00:00:00.000'    
+
+    @gf_response.status_code = 400
+    @gf_response.body = 'Some of the values submitted are not valid and have been ignored.'
+
+    transaction_save_helper(transaction)
+    
+    lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "Some of the values submitted are not valid and have been ignored.")
+    
+  end
+  
   def transaction_helper(id, options={})
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
 
@@ -104,4 +239,29 @@ describe GMoney::Transaction do
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
   end    
+  
+  def transaction_save_helper(transaction)
+    currency_code = transaction.currency_code ? transaction.currency_code : 'USD'
+  
+      atom_string = "<?xml version='1.0'?>
+      <entry xmlns='http://www.w3.org/2005/Atom'
+            xmlns:gf='http://schemas.google.com/finance/2007'
+            xmlns:gd='http://schemas.google.com/g/2005'>
+            <gf:transactionData date='#{transaction.date}' shares='#{transaction.shares}' type='#{transaction.type}'>"
+
+      atom_string += "<gf:commission><gd:money amount='#{transaction.commission}' currencyCode='#{currency_code}'/></gf:commission>" if transaction.commission
+      atom_string += "<gf:price><gd:money amount='#{transaction.price}' currencyCode='#{currency_code}'/></gf:price>" if transaction.price
+      atom_string += "</gf:transactionData></entry>"
+    
+    url = transaction.id ? transaction.id : "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{transaction.portfolio}/positions/#{transaction.ticker}/transactions"
+
+    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
+
+    headers = {"Authorization" => "GoogleLogin auth=toke", "Content-Type" => "application/atom+xml"}
+    headers["X-HTTP-Method-Override"] = "PUT" if transaction.id
+
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :body => atom_string, :headers => headers).and_return(@gf_request)
+
+    GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)    
+  end  
 end

@@ -67,4 +67,8 @@ class String
       raise TransactionParseError
     end
   end
+  
+  def blank?
+    respond_to?(:empty?) ? self.strip.empty? : !self
+  end  
 end

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12</id>
+  <updated>2009-11-18T01:44:50.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#transaction' />
+  <title type='text'>12</title>
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/12' />
+  <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ%3AGOOG/transactions/12' />
+  <gf:transactionData date='2009-11-17T00:00:00.000' shares='50.0' type='Buy'>
+    <gf:commission>
+      <gd:money amount='20.0' currencyCode='USD' />
+    </gf:commission>
+    <gf:price>
+      <gd:money amount='450.0' currencyCode='USD' />
+    </gf:price>
+  </gf:transactionData>
+</entry>

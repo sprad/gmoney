@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>http://finance.google.com/finance/feeds/user@example.com/portfolios/38</id>
+  <updated>2009-11-14T22:12:15.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/finance/2007#portfolio' />
+  <title type='text'>Updated Title</title>
+  <link rel='self' type='application/atom+xml' href='http://finance.google.com/finance/feeds/user@example.com/portfolios/38' />
+  <link rel='edit' type='application/atom+xml' href='http://finance.google.com/finance/feeds/user@example.com/portfolios/38' />
+  <gd:feedLink href='http://finance.google.com/finance/feeds/user@example.com/portfolios/38/positions' />
+  <gf:portfolioData currencyCode='USD' gainPercentage='0.0' return1w='0.0' return1y='0.0' return3m='0.0' return3y='0.0' return4w='0.0' return5y='0.0' returnOverall='0.0' returnYTD='0.0' />
+</entry>
+
+

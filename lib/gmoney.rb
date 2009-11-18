@@ -11,6 +11,7 @@ require 'net/https'
 require 'rexml/document'
 
 require 'extensions/fixnum'
+require 'extensions/nil_class'
 require 'extensions/string'
 
 require 'gmoney/authentication_request'

@@ -5,7 +5,9 @@ describe GMoney::Portfolio do
     @default_feed = File.read('spec/fixtures/default_portfolios_feed.xml')
     @feed_with_returns = File.read('spec/fixtures/portfolio_feed_with_returns.xml')
     @empty_feed = File.read('spec/fixtures/empty_portfolio_feed.xml')
-    @portfolio_9_feed = File.read('spec/fixtures/portfolio_9_feed.xml')
+    @portfolio_9_feed = File.read('spec/fixtures/portfolio_9_feed.xml')    
+    @new_portfolio_feed = File.read('spec/fixtures/new_portfolio_feed.xml')
+    @updated_portfolio_feed = File.read('spec/fixtures/updated_portfolio_feed.xml')        
   end
   
   before(:each) do
@@ -133,7 +135,58 @@ describe GMoney::Portfolio do
     portfolio_delete_helper("#{@url}/asdf")
 
     lambda { GMoney::Portfolio.delete("asdf") }.should raise_error(GMoney::Portfolio::PortfolioDeleteError, @gf_response.body)
-  end   
+  end
+  
+  it "should save a portfolio" do
+    portfolio = GMoney::Portfolio.new
+    portfolio.title = "New Portfolio"
+    
+    @gf_response.status_code = 200
+    @gf_response.body = @new_portfolio_feed
+
+    portfolio_save_helper(portfolio)
+
+    portfolio_return = portfolio.save
+    
+    portfolio_return.id.should be_eql('http://finance.google.com/finance/feeds/user@example.com/portfolios/38')
+    portfolio_return.title.should be_eql("New Portfolio")
+  end
+  
+  it "should update a portfolio when an @id is already set" do
+    portfolio = GMoney::Portfolio.new
+    portfolio.title = "New Portfolio"
+    portfolio.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/38")
+    
+    @gf_response.status_code = 201
+    @gf_response.body = @new_portfolio_feed
+
+    portfolio_save_helper(portfolio)
+    
+    portfolio.save
+  end
+  
+  it "should raise a PortfolioSaveError if the portfolio title is empty or nil" do
+    portfolio = GMoney::Portfolio.new
+    lambda { portfolio.save }.should raise_error(GMoney::Portfolio::PortfolioSaveError, 'Portfolios must have a title')    
+    
+    portfolio.title = ""
+    lambda { portfolio.save }.should raise_error(GMoney::Portfolio::PortfolioSaveError, 'Portfolios must have a title')        
+    
+    portfolio.title = "   "
+    lambda { portfolio.save }.should raise_error(GMoney::Portfolio::PortfolioSaveError, 'Portfolios must have a title')            
+  end  
+
+  it "should raise a PortfolioSaveError if a portfolio with the same title already exists" do
+    portfolio = GMoney::Portfolio.new
+    portfolio.title = "New Portfolio" #already exists
+    
+    @gf_response.status_code = 400
+    @gf_response.body = 'A Portfolio with this name already exists.'
+
+    portfolio_save_helper(portfolio)
+
+    lambda { portfolio.save }.should raise_error(GMoney::Portfolio::PortfolioSaveError, 'A Portfolio with this name already exists.')
+  end
 
   def portfolio_helper(url, id = nil, options = {})
     GMoney::GFSession.should_receive(:auth_token).and_return('toke')
@@ -158,5 +211,23 @@ describe GMoney::Portfolio do
     GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=toke", "X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
-  end  
+  end
+  
+  def portfolio_save_helper(portfolio)
+    title = portfolio.title
+    currency_code = portfolio.currency_code ? portfolio.currency_code : 'USD'
+  
+    atom_string = "<?xml version='1.0'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'><title type='text'>#{title}</title> <gf:portfolioData currencyCode='#{currency_code}'/></entry>"
+    
+    url = portfolio.id ? portfolio.id : GMoney::GF_PORTFOLIO_FEED_URL    
+
+    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
+
+    headers = {"Authorization" => "GoogleLogin auth=toke", "Content-Type" => "application/atom+xml"}
+    headers["X-HTTP-Method-Override"] = "PUT" if portfolio.id
+
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :body => atom_string, :headers => headers).and_return(@gf_request)
+
+    GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)    
+  end
 end
