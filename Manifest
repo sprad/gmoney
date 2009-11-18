@@ -3,6 +3,7 @@ README.rdoc
 Rakefile
 gmoney.gemspec
 lib/extensions/fixnum.rb
+lib/extensions/nil_class.rb
 lib/extensions/string.rb
 lib/gmoney.rb
 lib/gmoney/authentication_request.rb
@@ -21,6 +22,8 @@ spec/authentication_request_spec.rb
 spec/fixtures/cacert.pem
 spec/fixtures/default_portfolios_feed.xml
 spec/fixtures/empty_portfolio_feed.xml
+spec/fixtures/new_portfolio_feed.xml
+spec/fixtures/new_transaction_feed.xml
 spec/fixtures/portfolio_9_feed.xml
 spec/fixtures/portfolio_feed_with_returns.xml
 spec/fixtures/position_feed_for_9_GOOG.xml
@@ -29,7 +32,9 @@ spec/fixtures/positions_feed_for_portfolio_9.xml
 spec/fixtures/positions_feed_for_portfolio_9r.xml
 spec/fixtures/transaction_feed_for_GOOG_1.xml
 spec/fixtures/transactions_feed_for_GOOG.xml
+spec/fixtures/updated_portfolio_feed.xml
 spec/gmoney_spec.rb
+spec/nil_class_spec.rb
 spec/portfolio_feed_parser_spec.rb
 spec/portfolio_spec.rb
 spec/position_feed_parser_spec.rb
