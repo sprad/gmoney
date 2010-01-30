@@ -9,7 +9,7 @@ A gem for interacting with the Google Finance API
 == Usage
 
 Login
--------
+--------
   
     GMoney::GFSession.login('google username', 'password')
 
@@ -90,7 +90,7 @@ Transactions
     > transaction = GMoney::Transaction.find '2/NASDAQ:GOOG/1'
     > transaction.delete #call delete on an instance of a transaction    
     
-----------
+--------
 
 Options parameter
 
@@ -111,7 +111,7 @@ Options parameter
   * :refresh - GMoney caches the data returned from Google by default.  Set :refresh => true if you would like to get the latest data.
   * :eager - GMoney lazily loads children data (i.e. positions for a given Portfolio).  If you would like to load all of this data at once set :eager => true
   
-----------
+--------
 There are still some rough edges.  Feedback is appreciated.  
 
 == License
