@@ -20,7 +20,17 @@ describe GMoney::Portfolio do
     @gf_response.status_code = 200
     @gf_response.body = @default_feed
     @positions = nil
-  end 
+  end
+  
+  it "should have return a human readable (i.e. non-url) portfolio id" do
+    @gf_response.body = @default_feed
+
+    portfolios = portfolio_helper(@url)    
+    
+    portfolios[0].pid.should be_eql("8")
+    portfolios[1].pid.should be_eql("9")
+    portfolios[2].pid.should be_eql("3")
+  end
 
   it "should return all Portfolios when status_code is 200" do   
     @gf_response.body = @default_feed

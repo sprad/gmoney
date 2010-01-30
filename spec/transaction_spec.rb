@@ -19,6 +19,55 @@ describe GMoney::Transaction do
     @gf_response.body = @goog_feed
   end
   
+  it "should have return a human readable (i.e. non-url) transaction id" do
+    transactions = transaction_helper(@transaction_id)
+    transactions[0].tid.should be_eql("9/NASDAQ:GOOG/2")
+    transactions[1].tid.should be_eql("9/NASDAQ:GOOG/10")
+  end  
+
+  it "should return the portfolio id when it is set or infer the portfolio id from the transaction id when the portfolio id is not set" do
+    transaction = GMoney::Transaction.new
+    transaction.portfolio.should be_nil
+    
+    transaction.portfolio = '18'
+    transaction.portfolio.should be_eql('18')
+    
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    transaction.portfolio.should be_eql('9')
+
+    transaction = GMoney::Transaction.new
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    transaction.portfolio.should be_eql('9')
+  end
+
+  it "should return the ticker id when it is set or infer the ticker id from the transaction id when the ticker id is not set" do
+    transaction = GMoney::Transaction.new
+    transaction.ticker.should be_nil
+    
+    transaction.ticker = 'NASDAQ:AAPL'
+    transaction.ticker.should be_eql('NASDAQ:AAPL')
+    
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    transaction.ticker.should be_eql('NASDAQ:GOOG')
+
+    transaction = GMoney::Transaction.new
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    transaction.ticker.should be_eql('NASDAQ:GOOG')  
+  end
+  
+  it "should not allow users to set a portfolio on a transaction for transactions that have already been saved" do
+    transaction = GMoney::Transaction.new
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+
+    lambda { transaction.portfolio = 10 }.should raise_error(GMoney::Transaction::TransactionIdError, "You can't modify the portfolio for a Transaction that already has an id")  
+  end
+  
+  it "should not allow users to set a portfolio on a transaction for transactions that have already been saved" do
+    transaction = GMoney::Transaction.new
+    transaction.instance_variable_set("@id", "http://finance.google.com/finance/feeds/user@example.com/portfolios/9/positions/NASDAQ:GOOG/transactions/12")
+    lambda { transaction.ticker = "NASDAQ::AAPL" }.should raise_error(GMoney::Transaction::TransactionIdError, "You can't modify the ticker for a Transaction that already has an id")  
+  end
+  
   it "should return all Tranasactions when the status code is 200" do
     transactions = transaction_helper(@transaction_id)
   
@@ -96,10 +145,10 @@ describe GMoney::Transaction do
     
     trans.portfolio = 1
     trans.ticker = "NYSE:GLD"    
-    trans.type = 'Buy'
+    trans.type = GMoney::BUY
     trans.public_is_valid_transaction?.should be_true
     
-    trans.type = 'Sell'
+    trans.type = GMoney::SELL
     trans.public_is_valid_transaction?.should be_true    
     
     trans.type = 'Buy to Cover'
@@ -120,12 +169,12 @@ describe GMoney::Transaction do
     
     trans.portfolio = 1
     trans.ticker = "   "
-    trans.type = 'Buy'    
+    trans.type = GMoney::BUY
     trans.public_is_valid_transaction?.should be_false
     
     trans.portfolio = "  "
     trans.ticker = "NYSE:GLD"
-    trans.type = 'Buy'    
+    trans.type = GMoney::BUY
     trans.public_is_valid_transaction?.should be_false    
     
     trans.portfolio = nil
@@ -135,12 +184,12 @@ describe GMoney::Transaction do
     
     trans.portfolio = nil
     trans.ticker = "NYSE:GLD"
-    trans.type = 'Buy'    
+    trans.type = GMoney::BUY
     trans.public_is_valid_transaction?.should be_false        
     
     trans.portfolio = "1"
     trans.ticker = nil
-    trans.type = 'Buy'    
+    trans.type = GMoney::BUY
     trans.public_is_valid_transaction?.should be_false                
   end
 
@@ -148,7 +197,7 @@ describe GMoney::Transaction do
     transaction = GMoney::Transaction.new
     transaction.portfolio = 9
     transaction.ticker = 'NASDAQ:GOOG'
-    transaction.type = 'Buy'
+    transaction.type = GMoney::BUY
     transaction.shares = 50
     transaction.price = 450.0
     transaction.commission = 20.0
@@ -171,7 +220,7 @@ describe GMoney::Transaction do
     transaction = GMoney::Transaction.new
     transaction.portfolio = 9
     transaction.ticker = 'NASDAQ:GOOG'
-    transaction.type = 'Buy'
+    transaction.type = GMoney::BUY
     transaction.shares = 50
     transaction.price = 450.0
     transaction.commission = 20.0
@@ -192,12 +241,12 @@ describe GMoney::Transaction do
     lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")    
     
     transaction.portfolio = 9
-    transaction.type = 'Buy'
+    transaction.type = GMoney::BUY
     lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")        
     
     transaction.portfolio = nil
     transaction.ticker = 'NASDAQ:GOOG'
-    transaction.type = 'Buy'
+    transaction.type = GMoney::BUY
     lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "You must include a portfolio id, ticker symbol, and transaction type ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'] in order to create a transaction.")            
   end
   
@@ -205,7 +254,7 @@ describe GMoney::Transaction do
     transaction = GMoney::Transaction.new
     transaction.portfolio = 9
     transaction.ticker = 'asdfasd:asdfs' #invalid ticker
-    transaction.type = 'Buy'
+    transaction.type = GMoney::BUY
     transaction.shares = 50
     transaction.price = 450.0
     transaction.commission = 20.0

@@ -3,9 +3,40 @@ module GMoney
     class TransactionRequestError < StandardError; end
     class TransactionDeleteError < StandardError;end    
     class TransactionSaveError < StandardError;end
+    class TransactionIdError < StandardError;end
     
     attr_reader :id, :updated, :title
     attr_accessor :type, :date, :shares, :notes, :commission, :price, :portfolio, :ticker, :currency_code
+    
+    def tid
+      @id.transaction_feed_id
+    end
+    
+    def portfolio
+      if @id
+        @portfolio = tid.portfolio_id
+      else
+        @portfolio
+      end
+    end
+    
+    def ticker
+      if @id
+        @ticker = tid.position_id
+      else
+        @ticker
+      end    
+    end
+    
+    def portfolio=(p)
+      raise TransactionIdError, "You can't modify the portfolio for a Transaction that already has an id" if @id        
+      @portfolio = p
+    end
+    
+    def ticker=(t)
+      raise TransactionIdError, "You can't modify the ticker for a Transaction that already has an id" if @id        
+      @ticker = t
+    end
     
     def self.find(id, options={})   
       find_by_url("#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}", options)    
@@ -20,7 +51,7 @@ module GMoney
     end
     
     def delete
-      Transaction.delete(@id.transaction_feed_id)
+      Transaction.delete(tid)
       freeze
     end    
     
@@ -80,7 +111,6 @@ module GMoney
       if response.status_code == HTTPCreated || response.status_code == HTTPOK
         transaction = TransactionFeedParser.parse_transaction_feed(response.body)[0]
         self.instance_variable_set("@id", transaction.id) if response.status_code == HTTPCreated
-        transaction.portfolio = @portfolio if response.status_code == HTTPCreated        
       else
         raise TransactionSaveError, response.body
       end
@@ -88,11 +118,11 @@ module GMoney
     end
     
     def is_valid_transaction?
-      !(@portfolio.to_s.blank? || @ticker.blank? || !is_valid_transaction_type?)
+      !(portfolio.to_s.blank? || ticker.blank? || !is_valid_transaction_type?)
     end
     
     def is_valid_transaction_type?
-      ['Buy', 'Sell', 'Buy to Cover', 'Sell Short'].include?(@type)
+      [BUY, SELL, SELL_SHORT, BUY_TO_COVER].include?(@type)
     end
     
     private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?

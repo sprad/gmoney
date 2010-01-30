@@ -20,6 +20,16 @@ describe GMoney::Position do
     @gf_response.body = @defaul_feed
     @transactions = []
   end 
+  
+  it "should have return a human readable (i.e. non-url) position id" do    
+    @gf_response.body = @feed_with_returns
+    
+    positions = position_helper(@portfolio_id, {:returns => true})
+    
+    positions[0].pid.should be_eql("9/NASDAQ:JAVA")
+    positions[1].pid.should be_eql("9/NASDAQ:GOOG")
+    positions[2].pid.should be_eql("9/NASDAQ:AAPL")
+  end
 
   it "should return all Positions when status_code is 200" do   
     @gf_response.body = @default_feed

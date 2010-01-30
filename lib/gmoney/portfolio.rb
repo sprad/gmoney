@@ -10,6 +10,10 @@ module GMoney
                 :return_ytd, :return1y, :return3y, :return5y, :return_overall, 
                 :cost_basis, :days_gain, :gain, :market_value
      
+    def pid
+      @id.portfolio_feed_id
+    end
+
     def self.all(options = {})
       retreive_portfolios(:all, options)
     end
@@ -20,9 +24,9 @@ module GMoney
     
     def positions(options = {})
       if options[:refresh]
-        @positions = Position.find(@id.portfolio_feed_id, options)
+        @positions = Position.find(pid, options)
       else
-        @positions ||= Position.find(@id.portfolio_feed_id, options)
+        @positions ||= Position.find(pid, options)
       end
       
       @positions.is_a?(Array) ? @positions : [@positions]
@@ -37,7 +41,7 @@ module GMoney
     end
     
     def delete
-      Portfolio.delete(@id.portfolio_feed_id)
+      Portfolio.delete(pid)
       freeze
     end
       

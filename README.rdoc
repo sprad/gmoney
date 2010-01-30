@@ -9,7 +9,7 @@ A gem for interacting with the Google Finance API
 == Usage
 
 Login
------
+-------
   
     GMoney::GFSession.login('google username', 'password')
 
@@ -17,7 +17,7 @@ Portfolios
 --------
 
   Reading
-    > portfolios = GMoney::Portfolio.all #returns all of a users portfolios
+    > portfolios = GMoney::Portfolio.all #returns all of a user's portfolios
     > portfolio = GMoney::Portfolio.find(9) #returns a specific portfolio
     
     > positions = portfolio.positions #returns an Array of the Positions held within a given portfolio
@@ -45,7 +45,7 @@ Positions
 --------
 
   Reading
-    > positions = GMoney::Position.find(9) #returns all of a users positions within a given portfolio, i.e. Portfolio "9"
+    > positions = GMoney::Position.find(9) #returns all of a user's positions within a given portfolio, i.e. Portfolio "9"
     > position = GMoney::Position.find("9/NASDAQ:GOOG") #returns a specific position within a given portfolio
     
     > transactions = position.transactions #returns an Array of the Transactions within a given position
@@ -66,14 +66,14 @@ Transactions
 --------
 
   Reading
-    > transactions = GMoney::Transaction.find("9/NASDAQ:GOOG") #returns all of a users transactions within a given position
+    > transactions = GMoney::Transaction.find("9/NASDAQ:GOOG") #returns all of a user's transactions within a given position
     > transaction = GMoney::Transaction.find("9/NASDAQ:GOOG/2") #returns a specific transaction within a given position
     
   Creating
     > transaction = GMoney::Transaction.new
-    > transaction.portfolio = 9     #Must be a valid portfolio id
-    > transaction.ticker = 'nyse:c' #Must be a valid ticker symbol
-    > transaction.type = 'Buy'      #Must be one of the following: Buy, Sell, Sell Short, Buy to Cover
+    > transaction.portfolio = 9      #Must be a valid portfolio id
+    > transaction.ticker = 'nyse:c'  #Must be a valid ticker symbol
+    > transaction.type = GMoney::BUY #Must be one of the following: Buy, Sell, Sell Short, Buy to Cover
     > transaction.save #returns transaction object
     
   Updating
@@ -118,7 +118,7 @@ There are still some rough edges.  Feedback is appreciated.
 
 (The MIT License)
 
-Copyright (c) 2009 Justin Spradlin
+Copyright (c) 2010 Justin Spradlin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

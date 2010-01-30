@@ -1,6 +1,6 @@
 # Justin Spradlin
 # www.fiascode.com
-# (C) 2009
+# (C) 2010
 
 
 $:.unshift File.expand_path(File.dirname(__FILE__))
@@ -28,13 +28,19 @@ require 'gmoney/transaction'
 require 'gmoney/transaction_feed_parser'
 
 module GMoney
-  VERSION = '0.4.0'
+  VERSION = '0.4.2'
   GF_URL = "https://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
   GF_PORTFOLIO_FEED_URL = "#{GF_FEED_URL}/portfolios"
   
   HTTPOK = 200
   HTTPCreated = 201
+  
+  BUY = 'Buy'
+  SELL = 'Sell'
+  SELL_SHORT = 'Sell Short'
+  BUY_TO_COVER = 'Buy to Cover'
+  
   
   def self.version
     VERSION

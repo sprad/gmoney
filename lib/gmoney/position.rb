@@ -7,6 +7,10 @@ module GMoney
                 :full_name, :gain_percentage, :return1w, :return4w, :return3m, 
                 :return_ytd, :return1y, :return3y, :return5y, :return_overall, 
                 :cost_basis, :days_gain, :gain, :market_value
+                
+    def pid
+      @id.position_feed_id
+    end
     
     def self.find(id, options={})   
       find_by_url("#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}", options)    
@@ -14,9 +18,9 @@ module GMoney
     
     def transactions(options={})
       if options[:refresh]
-        @transactions = Transaction.find(@id.position_feed_id, options)
+        @transactions = Transaction.find(pid, options)
       else
-        @transactions ||= Transaction.find(@id.position_feed_id, options)
+        @transactions ||= Transaction.find(pid, options)
       end            
       
       @transactions.is_a?(Array) ? @transactions : [@transactions]      
@@ -27,7 +31,7 @@ module GMoney
     end
     
     def delete
-      Position.delete(@id.position_feed_id)
+      Position.delete(pid)
       freeze
     end
     
