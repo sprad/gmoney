@@ -82,6 +82,9 @@ Transactions
     > transaction.price = 3.50
     > transaction.save #returns transaction object
     
+    Note:  While updating transactions it is not possible to change the portfolio or ticker property as these values are used
+           by Google to identify specific transactions.
+    
   Deleting
     > GMoney::Transaction.delete '2/NASDAQ:GOOG/1'
   
