@@ -74,7 +74,7 @@ describe GMoney::GFService do
     set_url_expectations    
     http = set_http_expectations
     request = set_request_expecations(class_type)
-    set_header_expectations(request) if with_headers
+    set_header_expectations(request)
     res = set_response_expecations
 
     http.should_receive(:request).with(request).and_return(res) 
@@ -123,5 +123,6 @@ describe GMoney::GFService do
   def set_header_expectations(req)
     req.should_receive(:[]=).with(:h1, "header 1").any_number_of_times
     req.should_receive(:[]=).with(:h2, "header 2").any_number_of_times
+    req.should_receive(:[]=).with("GData-Version", 2).any_number_of_times    
   end
 end

@@ -9,7 +9,8 @@ module GMoney
       end
       
       @method ||= :get
-      @headers ||= {}
+      @headers ||= {}      
+      @headers['GData-Version'] = GF_GOOGLE_DATA_VERSION
     end    
   end 
 end

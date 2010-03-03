@@ -18,7 +18,7 @@ describe GMoney::GFRequest do
   
   it "should be able to take header parameters as a Hash" do
     gfrequest_with_header_hash = GMoney::GFRequest.new('http://someurl.com', {:headers => {:header1 => 'some header'}})
-    gfrequest_with_header_hash.headers.should == {:header1 => 'some header'}
+    gfrequest_with_header_hash.headers.should == {:header1 => 'some header', "GData-Version" => 2}
   end  
   
   it "should not accept random options" do

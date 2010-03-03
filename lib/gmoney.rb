@@ -28,10 +28,11 @@ require 'gmoney/transaction'
 require 'gmoney/transaction_feed_parser'
 
 module GMoney
-  VERSION = '0.4.2'
-  GF_URL = "https://finance.google.com/finance"
+  VERSION = '0.4.3'
+  GF_URL = "http://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
   GF_PORTFOLIO_FEED_URL = "#{GF_FEED_URL}/portfolios"
+  GF_GOOGLE_DATA_VERSION = 2
   
   HTTPOK = 200
   HTTPCreated = 201

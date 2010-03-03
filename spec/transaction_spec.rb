@@ -8,7 +8,7 @@ describe GMoney::Transaction do
   end
   
   before(:each) do
-    @url = 'https://finance.google.com/finance/feeds/default/portfolios/9/positions/NASDAQ:GOOG/transactions' 
+    @url = "#{GMoney::GF_URL}/feeds/default/portfolios/9/positions/NASDAQ:GOOG/transactions"
     @transaction_id = '9/NASDAQ:GOOG'
     
     @gf_request = GMoney::GFRequest.new(@url)

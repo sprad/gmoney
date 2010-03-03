@@ -71,7 +71,6 @@ module GMoney
 
       @currency_code ||= 'USD'
       
-      #Rcov hates multi-line strings and I hate red on my test coverage report.
       atom_string = "<?xml version='1.0'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'><title type='text'>#{title}</title> <gf:portfolioData currencyCode='#{currency_code}'/></entry>"
       
       url = @id ? @id : GF_PORTFOLIO_FEED_URL

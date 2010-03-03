@@ -11,7 +11,7 @@ describe GMoney::Portfolio do
   end
   
   before(:each) do
-    @url = 'https://finance.google.com/finance/feeds/default/portfolios'
+    @url = "#{GMoney::GF_URL}/feeds/default/portfolios"
   
     @gf_request = GMoney::GFRequest.new(@url)
     @gf_request.method = :get   
@@ -40,7 +40,7 @@ describe GMoney::Portfolio do
   end
 
   it "should return a portfolio with returns data is :returns == true" do
-    @url = 'https://finance.google.com/finance/feeds/default/portfolios?returns=true'
+    @url = "#{GMoney::GF_URL}/feeds/default/portfolios?returns=true"
     @gf_response.body = @feed_with_returns
 
     portfolios = portfolio_helper(@url, :all, {:returns => true})
@@ -158,7 +158,7 @@ describe GMoney::Portfolio do
 
     portfolio_return = portfolio.save
     
-    portfolio_return.id.should be_eql('http://finance.google.com/finance/feeds/user@example.com/portfolios/38')
+    portfolio_return.id.should be_eql("#{GMoney::GF_URL}/feeds/user@example.com/portfolios/38")
     portfolio_return.title.should be_eql("New Portfolio")
   end
   
