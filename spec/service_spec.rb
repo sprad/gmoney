@@ -123,6 +123,7 @@ describe GMoney::GFService do
   def set_header_expectations(req)
     req.should_receive(:[]=).with(:h1, "header 1").any_number_of_times
     req.should_receive(:[]=).with(:h2, "header 2").any_number_of_times
-    req.should_receive(:[]=).with("GData-Version", 2).any_number_of_times    
+    req.should_receive(:[]=).with("GData-Version", 2).any_number_of_times
+    req.should_receive(:[]=).with("Authorization", "GoogleLogin auth=").any_number_of_times    
   end
 end

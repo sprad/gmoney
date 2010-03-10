@@ -51,7 +51,7 @@ module GMoney
       url += "?returns=true" if options[:returns]
       portfolios = []
       
-      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url))
 
       if response.status_code == HTTPOK
         portfolios = PortfolioFeedParser.parse_portfolio_feed(response.body)
@@ -77,7 +77,7 @@ module GMoney
 
       #Some firewalls block HTTP PUT messages. To get around this, you can include a 
       #X-HTTP-Method-Override: PUT header in a POST request
-      headers = {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "Content-Type" => "application/atom+xml"}     
+      headers = {"Content-Type" => "application/atom+xml"}     
       headers["X-HTTP-Method-Override"] = "PUT" if @id #if there is already an @id defined then we are updating a portfolio
       
       request = GFRequest.new(url, :method => :post, :body => atom_string, :headers => headers)
@@ -97,7 +97,7 @@ module GMoney
     #X-HTTP-Method-Override: DELETE header in a POST request   
     def self.delete_portfolio(id)
       url = "#{GF_PORTFOLIO_FEED_URL}/#{id}"
-      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "X-HTTP-Method-Override" => "DELETE"}))
+      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}))
       raise PortfolioDeleteError, response.body if response.status_code != HTTPOK
     end
     

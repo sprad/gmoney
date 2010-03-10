@@ -144,12 +144,10 @@ describe GMoney::Position do
   end    
   
   def position_helper(id, options = {})
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
     url = "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}"
     send_url = options[:returns] ? (url + '?returns=true') : url
 
-    GMoney::GFRequest.should_receive(:new).with(send_url, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
+    GMoney::GFRequest.should_receive(:new).with(send_url).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
     

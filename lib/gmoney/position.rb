@@ -39,7 +39,7 @@ module GMoney
       positions = []
       url += "?returns=true" if options[:returns]
       
-      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url))
       
       if response.status_code == HTTPOK
         positions = PositionFeedParser.parse_position_feed(response.body) if response.status_code == 200

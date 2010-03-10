@@ -14,5 +14,10 @@ module GMoney
     def self.email
       @email
     end
+    
+    def self.logout
+      @email = nil
+      @auth_token = nil
+    end    
   end
 end

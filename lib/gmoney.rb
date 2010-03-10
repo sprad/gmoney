@@ -1,5 +1,5 @@
 # Justin Spradlin
-# www.fiascode.com
+# www.justinspradlin.com
 # (C) 2010
 
 
@@ -40,8 +40,7 @@ module GMoney
   BUY = 'Buy'
   SELL = 'Sell'
   SELL_SHORT = 'Sell Short'
-  BUY_TO_COVER = 'Buy to Cover'
-  
+  BUY_TO_COVER = 'Buy to Cover'  
   
   def self.version
     VERSION

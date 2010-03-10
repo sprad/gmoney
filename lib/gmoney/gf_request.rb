@@ -11,6 +11,7 @@ module GMoney
       @method ||= :get
       @headers ||= {}      
       @headers['GData-Version'] = GF_GOOGLE_DATA_VERSION
+      @headers['Authorization'] = "GoogleLogin auth=#{GFSession.auth_token}"
     end    
   end 
 end

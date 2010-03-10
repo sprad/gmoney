@@ -58,7 +58,7 @@ module GMoney
     def self.find_by_url(url, options={})
       transactions = []
       
-      response = GFService.send_request(GFRequest.new(url, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}"}))
+      response = GFService.send_request(GFRequest.new(url))
       
       if response.status_code == HTTPOK
         transactions = TransactionFeedParser.parse_transaction_feed(response.body)
@@ -76,7 +76,7 @@ module GMoney
     #the X-HTTP-Method-Override set to "DELETE"
     def self.delete_transaction(id)    
       url = "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
-      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "X-HTTP-Method-Override" => "DELETE"}))
+      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}))
       raise TransactionDeleteError, response.body if response.status_code != HTTPOK
     end
     
@@ -101,7 +101,7 @@ module GMoney
       
       #Some firewalls block HTTP PUT messages. To get around this, you can include a 
       #X-HTTP-Method-Override: PUT header in a POST request
-      headers = {"Authorization" => "GoogleLogin auth=#{GFSession.auth_token}", "Content-Type" => "application/atom+xml"}
+      headers = {"Content-Type" => "application/atom+xml"}
       headers["X-HTTP-Method-Override"] = "PUT" if @id #if there is already an @id defined then we are updating a transaction
 
       request = GFRequest.new(url, :method => :post, :body => atom_string, :headers => headers)

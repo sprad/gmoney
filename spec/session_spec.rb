@@ -29,4 +29,23 @@ describe GMoney::GFSession do
     GMoney::GFSession.login('email@example.com', 'password')
     GMoney::GFSession.email.should be_eql('email@example.com')
   end
+  
+  it "should allow users to logout" do
+    @auth_request.should_receive(:auth_token).with({}).and_return('toke')
+
+    GMoney::AuthenticationRequest.should_receive(:new).with('email@example.com', 'password').once.and_return(@auth_request)
+    GMoney::GFSession.login('email@example.com', 'password')
+    
+    GMoney::GFSession.email.should be_eql('email@example.com')
+    GMoney::GFSession.auth_token.should be_eql('toke')
+
+    GMoney::GFSession.logout
+    
+    GMoney::GFSession.email.should be_nil
+    GMoney::GFSession.auth_token.should be_nil
+  end  
+  
+  after(:all) do
+    GMoney::GFSession.logout
+  end
 end

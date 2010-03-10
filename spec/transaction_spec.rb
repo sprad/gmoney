@@ -270,11 +270,9 @@ describe GMoney::Transaction do
   end
   
   def transaction_helper(id, options={})
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
     url = "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
 
-    GMoney::GFRequest.should_receive(:new).with(url, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
+    GMoney::GFRequest.should_receive(:new).with(url).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
     
@@ -282,9 +280,7 @@ describe GMoney::Transaction do
   end
   
   def transaction_delete_helper(url)
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
-    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=toke", "X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
   end    
@@ -304,9 +300,7 @@ describe GMoney::Transaction do
     
     url = transaction.id ? transaction.id : "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{transaction.portfolio}/positions/#{transaction.ticker}/transactions"
 
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
-    headers = {"Authorization" => "GoogleLogin auth=toke", "Content-Type" => "application/atom+xml"}
+    headers = {"Content-Type" => "application/atom+xml"}
     headers["X-HTTP-Method-Override"] = "PUT" if transaction.id
 
     GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :body => atom_string, :headers => headers).and_return(@gf_request)

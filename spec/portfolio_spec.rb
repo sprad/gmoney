@@ -14,7 +14,7 @@ describe GMoney::Portfolio do
     @url = "#{GMoney::GF_URL}/feeds/default/portfolios"
   
     @gf_request = GMoney::GFRequest.new(@url)
-    @gf_request.method = :get   
+    @gf_request.method = :get
     
     @gf_response = GMoney::GFResponse.new
     @gf_response.status_code = 200
@@ -198,10 +198,8 @@ describe GMoney::Portfolio do
     lambda { portfolio.save }.should raise_error(GMoney::Portfolio::PortfolioSaveError, 'A Portfolio with this name already exists.')
   end
 
-  def portfolio_helper(url, id = nil, options = {})
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
-    GMoney::GFRequest.should_receive(:new).with(url, :headers => {"Authorization" => "GoogleLogin auth=toke"}).and_return(@gf_request)
+  def portfolio_helper(url, id = nil, options = {})    
+    GMoney::GFRequest.should_receive(:new).with(url).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
     
@@ -215,10 +213,8 @@ describe GMoney::Portfolio do
     portfolios = id ? GMoney::Portfolio.find(id, options) : GMoney::Portfolio.all(options)
   end
   
-  def portfolio_delete_helper(url)
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
-    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"Authorization" => "GoogleLogin auth=toke", "X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
+  def portfolio_delete_helper(url)    
+    GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
   end
@@ -229,11 +225,9 @@ describe GMoney::Portfolio do
   
     atom_string = "<?xml version='1.0'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:gf='http://schemas.google.com/finance/2007' xmlns:gd='http://schemas.google.com/g/2005'><title type='text'>#{title}</title> <gf:portfolioData currencyCode='#{currency_code}'/></entry>"
     
-    url = portfolio.id ? portfolio.id : GMoney::GF_PORTFOLIO_FEED_URL    
+    url = portfolio.id ? portfolio.id : GMoney::GF_PORTFOLIO_FEED_URL
 
-    GMoney::GFSession.should_receive(:auth_token).and_return('toke')
-
-    headers = {"Authorization" => "GoogleLogin auth=toke", "Content-Type" => "application/atom+xml"}
+    headers = {"Content-Type" => "application/atom+xml"}
     headers["X-HTTP-Method-Override"] = "PUT" if portfolio.id
 
     GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :body => atom_string, :headers => headers).and_return(@gf_request)
