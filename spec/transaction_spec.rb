@@ -272,6 +272,8 @@ describe GMoney::Transaction do
   def transaction_helper(id, options={})
     url = "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
 
+    GMoney::Transaction.should_receive(:transaction_url).with(id).and_return(url)
+
     GMoney::GFRequest.should_receive(:new).with(url).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)
@@ -280,6 +282,8 @@ describe GMoney::Transaction do
   end
   
   def transaction_delete_helper(url)
+    GMoney::Transaction.should_receive(:transaction_url).and_return(url)
+
     GMoney::GFRequest.should_receive(:new).with(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}).and_return(@gf_request)
 
     GMoney::GFService.should_receive(:send_request).with(@gf_request).and_return(@gf_response)

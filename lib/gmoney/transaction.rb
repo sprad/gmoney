@@ -39,7 +39,7 @@ module GMoney
     end
     
     def self.find(id, options={})   
-      find_by_url("#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}", options)    
+      find_by_url(transaction_url(id), options)    
     end    
     
     def save
@@ -75,8 +75,7 @@ module GMoney
     #To overcome this problem the google doc say to use a post request with
     #the X-HTTP-Method-Override set to "DELETE"
     def self.delete_transaction(id)    
-      url = "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
-      response = GFService.send_request(GFRequest.new(url, :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}))
+      response = GFService.send_request(GFRequest.new(transaction_url(id), :method => :post, :headers => {"X-HTTP-Method-Override" => "DELETE"}))
       raise TransactionDeleteError, response.body if response.status_code != HTTPOK
     end
     
@@ -125,7 +124,11 @@ module GMoney
       [BUY, SELL, SELL_SHORT, BUY_TO_COVER].include?(@type)
     end
     
-    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?
+    def transaction_url(id)
+      "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
+    end
+    
+    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?, :transaction_url
     private_class_method :find_by_url, :delete_transaction
   end
 end

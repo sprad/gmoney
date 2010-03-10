@@ -1,3 +1,8 @@
+# = Fixnum
+#
+# TODO update: GMoney Fixnum methods to...
+#
+
 class Fixnum
   def portfolio_id
     self.to_s.portfolio_id

@@ -26,17 +26,17 @@ class String
   end
   
   def position_feed_id
-   portfolio = self[self.rindex('portfolios/')+11..index('/positions')-1]
+   portfolio = finance_feed_id_helper('portfolios', 11)
    position = self[rindex('/')+1..-1]
    "#{portfolio}/#{position}"
   end  
   
   def transaction_feed_id
-   portfolio = self[self.rindex('portfolios/')+11..index('/positions')-1]
-   position = self[self.rindex('positions/')+10..index('/transactions')-1]
+   portfolio = finance_feed_id_helper('portfolios', 11)
+   position = finance_feed_id_helper('positions', 10)
    transaction = self[rindex('/')+1..-1]
    "#{portfolio}/#{position}/#{transaction}"
-  end  
+  end
   
   def portfolio_id
     if self[@@transaction_re_in] || self[@@position_re_in] || self[@@portfolio_re_in]
@@ -70,5 +70,12 @@ class String
   
   def blank?
     respond_to?(:empty?) ? self.strip.empty? : !self
-  end  
+  end
+  
+  private
+  
+  def finance_feed_id_helper(finance_object, offset)
+    f_objs = finance_object == 'portfolios' ? ['portfolios/', '/positions'] : ['positions/', '/transactions']
+    self[self.rindex(f_objs[0])+offset..index(f_objs[1])-1]
+  end
 end
