@@ -1,7 +1,24 @@
 module GMoney
+	# = Portfolio
+	#
+	# A Google Finace API Portfolio holds a collection of Positions
+	# and their associated Transactions
+	#
+  # > portfolio = GMoney::Portfolio.new  
+	# > portfolio.title = "My New Portfolio"
+  # > portfolio.save #returns portfolio object
+	#
   class Portfolio 
-    class PortfolioRequestError < StandardError;end
+		# = PortfolioRequestError
+		# Invalid request actions or identifiers    
+		class PortfolioRequestError < StandardError;end
+
+		# = PortfolioDeleteError
+		# Invalid delete action or identifier
     class PortfolioDeleteError < StandardError;end
+
+		# = PortfolioSaveError
+		# Invalid save action or identifier
     class PortfolioSaveError < StandardError;end    
   
     attr_accessor :title, :currency_code
@@ -59,7 +76,7 @@ module GMoney
         raise PortfolioRequestError, response.body
       end
 
-      portfolios.each { |p| p.instance_variable_set("@positions", p.positions(options))} if options[:eager]
+      portfolios.each { |port| port.instance_variable_set("@positions", port.positions(options))} if options[:eager]
       
       return portfolios[0] if portfolios.size == 1
       

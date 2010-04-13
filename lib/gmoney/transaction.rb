@@ -1,8 +1,30 @@
 module GMoney
+	# = Transaction
+	#
+	# The Google Finace API allows for the buying and selling
+	# of securities (i.e. Positions) through Transactions.  To
+	# create a valid Transaction use the following code:
+	#
+	#	> transaction.portfolio = 9      #Must be a valid portfolio id
+  # > transaction.ticker = 'nyse:c'  #Must be a valid ticker symbol
+  # > transaction.type = GMoney::BUY #Must be one of the following: Buy, Sell, Sell Short, Buy to Cover
+	#
   class Transaction
-    class TransactionRequestError < StandardError; end
-    class TransactionDeleteError < StandardError;end    
+		# = TransactionRequestError
+		# Invalid request actions or identifiers
+		class TransactionRequestError < StandardError; end
+
+		# = TransactionDeleteError
+		# Invalid delete action or identifier
+    class TransactionDeleteError < StandardError;end
+
+		# = TransactionSaveError
+		# Invalid save action or identifier
     class TransactionSaveError < StandardError;end
+
+		# = TransactionIdError
+		# Don't allow users to modify the portfolio or position of
+		# a transaction that has already been created.
     class TransactionIdError < StandardError;end
     
     attr_reader :id, :updated, :title
@@ -28,14 +50,14 @@ module GMoney
       end    
     end
     
-    def portfolio=(p)
+    def portfolio=(port)
       raise TransactionIdError, "You can't modify the portfolio for a Transaction that already has an id" if @id        
-      @portfolio = p
+      @portfolio = port
     end
     
-    def ticker=(t)
+    def ticker=(tick)
       raise TransactionIdError, "You can't modify the ticker for a Transaction that already has an id" if @id        
-      @ticker = t
+      @ticker = tick
     end
     
     def self.find(id, options={})   
@@ -124,11 +146,11 @@ module GMoney
       [BUY, SELL, SELL_SHORT, BUY_TO_COVER].include?(@type)
     end
     
-    def transaction_url(id)
+    def self.transaction_url(id)
       "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
     end
     
-    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?, :transaction_url
-    private_class_method :find_by_url, :delete_transaction
+    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?
+    private_class_method :find_by_url, :delete_transaction, :transaction_url
   end
 end

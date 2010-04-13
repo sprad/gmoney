@@ -1,7 +1,20 @@
+# = String
+#
 class String
+	# = ParseError
+	# Incorrect id/url parsing
   class ParseError < StandardError; end
+
+	# = PortfolioParseError
+	# Incorrect portfolio id/url parsing
   class PortfolioParseError < ParseError; end
+
+	# = PositionParseError
+	# Incorrect position id/url parsing
   class PositionParseError < ParseError; end
+
+	# = TransactionParseError
+	# Incorrect transaction id/url parsing
   class TransactionParseError < ParseError; end
   
   @@portfolio_re = /\d+/
@@ -10,7 +23,6 @@ class String
   @@position_re_in = /^\d+\/[a-zA-Z]+:[a-zA-Z]+$/
   @@transaction_re = /\d+\/[a-zA-Z]+:[a-zA-Z]+\/\d+/
   @@transaction_re_in = /^\d+\/[a-zA-Z]+:[a-zA-Z]+\/\d+$/
-
 
   def camel_to_us
     add_us = gsub(/(.)([A-Z][a-z]+)/, '\1_\2')
