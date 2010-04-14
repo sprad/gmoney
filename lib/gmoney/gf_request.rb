@@ -1,4 +1,8 @@
 module GMoney
+	# = GFRequest
+	#
+	# Wraps Requests that are sent to Google via GMoney
+	#
   class GFRequest
     attr_accessor :url, :body, :method, :headers
     

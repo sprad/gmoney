@@ -268,6 +268,14 @@ describe GMoney::Transaction do
     lambda { transaction.save }.should raise_error(GMoney::Transaction::TransactionSaveError, "Some of the values submitted are not valid and have been ignored.")
     
   end
+
+	it "should create a url out of a Portfolio id" do		
+		#Set methods to public visibility for testing
+	  GMoney::Transaction.send(:public, *GMoney::Transaction.private_instance_methods)
+		trans = GMoney::Transaction.new
+		transaction_string = trans.transaction_url("123/NASDAQ:GOOG/23")
+		transaction_string.should be_eql("#{GMoney::GF_PORTFOLIO_FEED_URL}/123/positions/NASDAQ:GOOG/transactions/23")
+	end
   
   def transaction_helper(id, options={})
     url = "#{GMoney::GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"

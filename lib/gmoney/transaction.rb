@@ -8,6 +8,7 @@ module GMoney
 	#	> transaction.portfolio = 9      #Must be a valid portfolio id
   # > transaction.ticker = 'nyse:c'  #Must be a valid ticker symbol
   # > transaction.type = GMoney::BUY #Must be one of the following: Buy, Sell, Sell Short, Buy to Cover
+	# > transaction.save #returns transaction object
 	#
   class Transaction
 		# = TransactionRequestError
@@ -146,11 +147,11 @@ module GMoney
       [BUY, SELL, SELL_SHORT, BUY_TO_COVER].include?(@type)
     end
     
-    def self.transaction_url(id)
+    def transaction_url(id)
       "#{GF_PORTFOLIO_FEED_URL}/#{id.portfolio_id}/positions/#{id.position_id}/transactions/#{id.transaction_id}"
     end
     
-    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?
-    private_class_method :find_by_url, :delete_transaction, :transaction_url
+    private :save_transaction, :is_valid_transaction?, :is_valid_transaction_type?, :transaction_url
+    private_class_method :find_by_url, :delete_transaction
   end
 end

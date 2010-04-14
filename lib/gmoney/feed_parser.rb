@@ -1,4 +1,9 @@
 module GMoney
+	# = FeedParser
+	#
+	# Parses Atom feeds that are returned from the Google Finance API
+	# and converts its data into Ruby objects.
+	#
   class FeedParser
     def self.parse_feed(feed, feed_class, options = {:feed_link => true, :symbol => false})
       doc = REXML::Document.new(feed)

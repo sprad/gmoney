@@ -1,6 +1,20 @@
 module GMoney
+	# = Position
+	#
+	# The Google Finace API allows users to view position information
+	# for the securities (i.e. Positions) in their portfolios.
+	# To read a position use the following code:
+	#
+  # > positions = GMoney::Position.find(9) #returns all of a user's positions within a given portfolio, i.e. Portfolio "9"
+  # > position = GMoney::Position.find("9/NASDAQ:GOOG") #returns a specific position within a given portfolio
+	#
   class Position
+		# = PositionRequestError
+		# Invalid request actions or identifiers
     class PositionRequestError < StandardError; end
+
+		# = PositionDeleteError
+		# Invalid delete actions or identifiers
     class PositionDeleteError < StandardError; end
     
     attr_reader :id, :updated, :title, :feed_link, :exchange, :symbol, :shares, 

@@ -2,7 +2,6 @@
 # www.justinspradlin.com
 # (C) 2010
 
-
 $:.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'date'
@@ -28,7 +27,7 @@ require 'gmoney/transaction'
 require 'gmoney/transaction_feed_parser'
 
 module GMoney
-  VERSION = '0.4.3'
+  VERSION = '0.4.4'
   GF_URL = "http://finance.google.com/finance"
   GF_FEED_URL = "#{GF_URL}/feeds/default"
   GF_PORTFOLIO_FEED_URL = "#{GF_FEED_URL}/portfolios"

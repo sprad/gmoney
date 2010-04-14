@@ -3,6 +3,10 @@ require 'net/https'
 require 'uri'
 
 module GMoney 
+	# = GFService
+	#
+	# Used to send and receive RESTful request/responses from Google
+	#
   class GFService 
     def self.send_request(request)       
       url = URI.parse(request.url)

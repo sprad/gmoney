@@ -1,5 +1,5 @@
 # = Fixnum 
-#
+# GMoney Fixnum Extensions
 class Fixnum
   def portfolio_id
     self.to_s.portfolio_id

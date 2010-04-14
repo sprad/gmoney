@@ -1,4 +1,10 @@
 module GMoney
+
+	# = GFSession
+	#
+	# Holds the authenicated user's token which is need
+	# for each request sent to Google
+	#
   class GFSession
     
     def self.login(email, password, opts={})

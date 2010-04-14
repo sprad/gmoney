@@ -1,5 +1,5 @@
 # = String
-#
+# GMoney String Extensions
 class String
 	# = ParseError
 	# Incorrect id/url parsing
