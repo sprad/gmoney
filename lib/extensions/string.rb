@@ -5,16 +5,16 @@ class String
 	# Incorrect id/url parsing
   class ParseError < StandardError; end
 
-	# = PortfolioParseError
-	# Incorrect portfolio id/url parsing
+  # = PortfolioParseError
+  # Incorrect portfolio id/url parsing
   class PortfolioParseError < ParseError; end
 
-	# = PositionParseError
-	# Incorrect position id/url parsing
+  # = PositionParseError
+  # Incorrect position id/url parsing
   class PositionParseError < ParseError; end
 
-	# = TransactionParseError
-	# Incorrect transaction id/url parsing
+  # = TransactionParseError
+  # Incorrect transaction id/url parsing
   class TransactionParseError < ParseError; end
   
   @@portfolio_re = /\d+/

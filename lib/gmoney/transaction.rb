@@ -1,31 +1,31 @@
 module GMoney
-	# = Transaction
-	#
-	# The Google Finace API allows for the buying and selling
-	# of securities (i.e. Positions) through Transactions.  To
-	# create a valid Transaction use the following code:
-	#
-	#	> transaction.portfolio = 9      #Must be a valid portfolio id
+  # = Transaction
+  #
+  # The Google Finace API allows for the buying and selling
+  # of securities (i.e. Positions) through Transactions.  To
+  # create a valid Transaction use the following code:
+  #
+  #	> transaction.portfolio = 9      #Must be a valid portfolio id
   # > transaction.ticker = 'nyse:c'  #Must be a valid ticker symbol
   # > transaction.type = GMoney::BUY #Must be one of the following: Buy, Sell, Sell Short, Buy to Cover
-	# > transaction.save #returns transaction object
-	#
+  # > transaction.save #returns transaction object
+  #
   class Transaction
-		# = TransactionRequestError
-		# Invalid request actions or identifiers
+    # = TransactionRequestError
+    # Invalid request actions or identifiers
 		class TransactionRequestError < StandardError; end
 
-		# = TransactionDeleteError
-		# Invalid delete action or identifier
+    # = TransactionDeleteError
+    # Invalid delete action or identifier
     class TransactionDeleteError < StandardError;end
 
-		# = TransactionSaveError
-		# Invalid save action or identifier
+    # = TransactionSaveError
+    # Invalid save action or identifier
     class TransactionSaveError < StandardError;end
 
-		# = TransactionIdError
-		# Don't allow users to modify the portfolio or position of
-		# a transaction that has already been created.
+    # = TransactionIdError
+    # Don't allow users to modify the portfolio or position of
+    # a transaction that has already been created.
     class TransactionIdError < StandardError;end
     
     attr_reader :id, :updated, :title
