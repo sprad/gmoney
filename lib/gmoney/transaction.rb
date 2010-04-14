@@ -13,7 +13,7 @@ module GMoney
   class Transaction
     # = TransactionRequestError
     # Invalid request actions or identifiers
-		class TransactionRequestError < StandardError; end
+    class TransactionRequestError < StandardError; end
 
     # = TransactionDeleteError
     # Invalid delete action or identifier

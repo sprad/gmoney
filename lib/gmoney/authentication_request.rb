@@ -5,10 +5,10 @@ module GMoney
   #
   class AuthenticationRequest
 
-	  # = AuthError
-	  #
-	  # Thrown when there is a network or Authentication error.
-	  #
+    # = AuthError
+    #
+    # Thrown when there is a network or Authentication error.
+    #
     class AuthError < StandardError;end
     
     AUTH_URL = 'https://www.google.com/accounts/ClientLogin'
