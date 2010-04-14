@@ -1,8 +1,8 @@
 # = String
 # GMoney String Extensions
 class String
-	# = ParseError
-	# Incorrect id/url parsing
+  # = ParseError
+  # Incorrect id/url parsing
   class ParseError < StandardError; end
 
   # = PortfolioParseError

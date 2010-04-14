@@ -11,7 +11,7 @@ module GMoney
   class Portfolio 
     # = PortfolioRequestError
     # Invalid request actions or identifiers    
-		class PortfolioRequestError < StandardError;end
+    class PortfolioRequestError < StandardError;end
 
     # = PortfolioDeleteError
     # Invalid delete action or identifier
