@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gmoney}
-  s.version = "0.4.3"
+  s.version = "0.4.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Spradlin"]
-  s.date = %q{2010-03-02}
+  s.date = %q{2010-04-13}
   s.description = %q{A gem for interacting with the Google Finance API}
   s.email = %q{jspradlin@gmail.com}
   s.extra_rdoc_files = ["README.rdoc", "lib/extensions/fixnum.rb", "lib/extensions/nil_class.rb", "lib/extensions/string.rb", "lib/gmoney.rb", "lib/gmoney/authentication_request.rb", "lib/gmoney/feed_parser.rb", "lib/gmoney/gf_request.rb", "lib/gmoney/gf_response.rb", "lib/gmoney/gf_service.rb", "lib/gmoney/gf_session.rb", "lib/gmoney/portfolio.rb", "lib/gmoney/portfolio_feed_parser.rb", "lib/gmoney/position.rb", "lib/gmoney/position_feed_parser.rb", "lib/gmoney/transaction.rb", "lib/gmoney/transaction_feed_parser.rb"]
